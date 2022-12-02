@@ -12,13 +12,13 @@ getInput = do lst <- lines <$> readFile "./input.txt"
               return $ map readMaybe lst
 
 sum' :: [Maybe Integer] -> [Integer]
-sum' lst = map (sum . map (fromMaybe 0)) $ endBy [Nothing] lst
+sum' lst = reverse . sort . map (sum . map (fromMaybe 0)) $ endBy [Nothing] lst
 
 getMaxElf :: [Integer] -> Integer
-getMaxElf = maximum
+getMaxElf = head
 
 getTopThreeElvesSum :: [Integer] -> Integer
-getTopThreeElvesSum lst = sum $ take 3 $ reverse $ sort lst
+getTopThreeElvesSum = sum . take 3
 
 main :: IO()
 main = do
