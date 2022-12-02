@@ -1,4 +1,10 @@
-{- AoC01 by Lorin Lange -}
+----------------------------------------------------
+--                                                --
+--              Advent of Code 2022               --
+--            Day 1: Calorie Counting             --
+--            Solution by Lorin Lange             --
+--                                                --
+----------------------------------------------------
 
 module AoC01 where
 

@@ -1,4 +1,10 @@
-{- AoC02 by Lorin Lange -}
+----------------------------------------------------
+--                                                --
+--              Advent of Code 2022               --
+--           Day 2: Rock Paper Scissors           --
+--            Solution by Lorin Lange             --
+--                                                --
+----------------------------------------------------
 
 module AoC02 where
 
@@ -46,14 +52,14 @@ parseShape2 "Z" = Win
 calculateScore :: (Shape, Shape) -> Score
 calculateScore (opp, p) = scoreOfShape p + scoreOfRes (calculateResult p opp)
 
-getInput :: IO [([Char], [Char])]
+getInput :: IO [(String, String)]
 getInput = do lst <- lines <$> readFile "./input.txt"
               return $ map ((\ l -> (head l, head $ tail l)) . endBy " ") lst
 
-parseInput1 :: [([Char], [Char])] -> [(Shape, Shape)]
+parseInput1 :: [(String, String)] -> [(Shape, Shape)]
 parseInput1 = map $ bimap parseShape1 parseShape1
 
-parseInput2 :: [([Char], [Char])] -> [(Shape, Result)]
+parseInput2 :: [(String, String)] -> [(Shape, Result)]
 parseInput2 = map $ bimap parseShape1 parseShape2
 
 calculateMove :: (Shape, Result) -> (Shape, Shape)
