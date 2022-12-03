@@ -1,0 +1,55 @@
+----------------------------------------------------
+--                                                --
+--              Advent of Code 2022               --
+--         Day 3: Rucksack Reorganization         --
+--            Solution by Lorin Lange             --
+--                                                --
+----------------------------------------------------
+
+module AoC03 where
+
+import Data.Maybe ( fromMaybe )
+import Data.List.Split ( chunksOf )
+
+priorities :: [(Char, Integer)]
+priorities = zip ['a'..'z'] [1..26] ++ zip ['A'..'Z'] [27..52]
+
+getInput :: IO [String]
+getInput = do lines <$> readFile "./input.txt"
+
+chunk :: String -> (String, String)
+chunk str = splitAt (length str `div` 2) str
+
+testInput :: String
+testInput = "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"
+
+findDuplicate :: (String, String) -> Char
+findDuplicate ([],   str) = error "should not happen"
+findDuplicate (x:xs, str) = if x `elem` str then x else findDuplicate (xs, str)
+
+findUnique :: [String] -> Char
+findUnique t = head $ head $ filter (\[c1, c2, c3] -> c1 == c2 && c2 == c3) $ findUniqueHelper t
+   where findUniqueHelper [s1, s2, s3] = do
+            c1 <- s1
+            c2 <- s2
+            c3 <- s3
+            return [c1, c2, c3]
+
+main :: IO()
+main = do
+    print "Result of part one"
+    let testInputSum = sum $ map (\i -> fromMaybe 0 $ lookup (findDuplicate $ chunk i) priorities) $ lines testInput
+    print testInputSum
+
+    input <- getInput
+    let inputSum = sum $ map (\i -> fromMaybe 0 $ lookup (findDuplicate $ chunk i) priorities) input
+    print inputSum
+
+    print "Result of part two"
+    let inp = map findUnique $ chunksOf 3 $ lines testInput
+    let res = sum $ map (\i -> fromMaybe 0 $ lookup i priorities) inp
+    print res
+
+    let inp = map findUnique $ chunksOf 3 input
+    let res = sum $ map (\i -> fromMaybe 0 $ lookup i priorities) inp
+    print res
