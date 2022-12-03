@@ -15,17 +15,22 @@ priorities :: [(Char, Integer)]
 priorities = zip ['a'..'z'] [1..26] ++ zip ['A'..'Z'] [27..52]
 
 getInput :: IO [String]
-getInput = do lines <$> readFile "./input.txt"
+getInput = lines <$> readFile "./input.txt"
 
 chunk :: String -> (String, String)
 chunk str = splitAt (length str `div` 2) str
 
 testInput :: String
-testInput = "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"
+testInput = "vJrwpWtwJgWrhcsFMMfFFhFp\n\
+            \jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\n\
+            \PmmdzqPrVvPwwTWBwg\n\
+            \wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n\
+            \ttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"
 
 findDuplicate :: (String, String) -> Char
 findDuplicate ([],   str) = error "should not happen"
-findDuplicate (x:xs, str) = if x `elem` str then x else findDuplicate (xs, str)
+findDuplicate (x:xs, str) | x `elem` str = x 
+                          | otherwise    = findDuplicate (xs, str)
 
 findUnique :: [String] -> Char
 findUnique t = head $ head $ filter (\[c1, c2, c3] -> c1 == c2 && c2 == c3) $ findUniqueHelper t
