@@ -33,17 +33,9 @@ findDuplicate (x:xs, str) | x `elem` str = x
                           | otherwise    = findDuplicate (xs, str)
 
 findCommon :: [String] -> Char
-findCommon t = head $ head $ filter (\[c1, c2, c3] -> c1 == c2 && c2 == c3) $ findCommonHelper t
-   where findCommonHelper [s1, s2, s3] = do
-            c1 <- s1
-            c2 <- s2
-            c3 <- s3
-            return [c1, c2, c3]
-
-findCommon' :: [String] -> Char
-findCommon' [[],   s2, s3] = error "should not happen"
-findCommon' [x:xs, s2, s3] | x `elem` s2 && x `elem` s3 = x
-                           | otherwise                  = findCommon' [xs, s2, s3]
+findCommon [[],   s2, s3] = error "should not happen"
+findCommon [x:xs, s2, s3] | x `elem` s2 && x `elem` s3 = x
+                          | otherwise                  = findCommon [xs, s2, s3]
 
 main :: IO()
 main = do
@@ -56,10 +48,10 @@ main = do
     print inputSum
 
     print "Result of part two"
-    let inp = map findCommon' $ chunksOf 3 $ lines testInput
+    let inp = map findCommon $ chunksOf 3 $ lines testInput
     let res = sum $ map (\i -> fromMaybe 0 $ lookup i priorities) inp
     print res
 
-    let inp = map findCommon' $ chunksOf 3 input
+    let inp = map findCommon $ chunksOf 3 input
     let res = sum $ map (\i -> fromMaybe 0 $ lookup i priorities) inp
     print res
