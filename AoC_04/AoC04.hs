@@ -23,7 +23,7 @@ parseInput :: [String] -> [((Integer, Integer), (Integer, Integer))]
 parseInput = map parser
 
 parser :: String -> ((Integer, Integer), (Integer, Integer))
-parser str = let (l, r) = splitC str
+parser str = let (l, r)   = splitC str
                  (ll, lr) = splitH l
                  (rl, rr) = splitH r
              in ((read ll, read lr), (read rl, read rr))
@@ -41,27 +41,23 @@ split (x:xs) d False (l, r) | x == d = split xs d True (l, r)
 split (x:xs) d True (l, r) = split xs d True (l, r ++ [x])
 
 isContained :: ((Integer, Integer), (Integer, Integer)) -> Bool
-isContained ((ll, lr), (rl, rr)) = (ll <= rl && rr <= lr) || (ll >= rl && lr <= rr)
+isContained ((ll, lr), (rl, rr)) = ll <= rl && rr <= lr || ll >= rl && lr <= rr
 
 isOverlapping :: ((Integer, Integer), (Integer, Integer)) -> Bool
 isOverlapping ((ll, lr), (rl, rr)) = lr >= rl && ll <= rr
 
 main :: IO()
 main = do
-
     i <- getInput
     let input = parseInput i
 
-
     print "Result of part one"
-
     let tInput = parseInput $ lines testInput
-    let testRes = length $ filter isContained tInput
-    print testRes
+    let testRes1 = length $ filter isContained tInput
+    print testRes1
 
-    
-    let res = length $ filter isContained input
-    print res
+    let res1 = length $ filter isContained input
+    print res1
 
     print "Result of part two"
     let testRes2 = length $ filter isOverlapping tInput
