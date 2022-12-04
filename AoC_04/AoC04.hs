@@ -8,6 +8,8 @@
 
 module AoC04 where
 
+type Range = (Integer, Integer)
+
 testInput :: String
 testInput = "2-4,6-8\n\
             \2-3,4-5\n\
@@ -19,10 +21,10 @@ testInput = "2-4,6-8\n\
 getInput :: IO [String]
 getInput = lines <$> readFile "./input.txt"
 
-parseInput :: [String] -> [((Integer, Integer), (Integer, Integer))]
+parseInput :: [String] -> [(Range, Range)]
 parseInput = map parser
 
-parser :: String -> ((Integer, Integer), (Integer, Integer))
+parser :: String -> (Range, Range)
 parser str = let (l, r)   = splitC str
                  (ll, lr) = splitH l
                  (rl, rr) = splitH r
@@ -40,10 +42,10 @@ split (x:xs) d False (l, r) | x == d = split xs d True (l, r)
                             | otherwise = split xs d False (l ++ [x], r)
 split (x:xs) d True (l, r) = split xs d True (l, r ++ [x])
 
-isContained :: ((Integer, Integer), (Integer, Integer)) -> Bool
+isContained :: (Range, Range) -> Bool
 isContained ((ll, lr), (rl, rr)) = ll <= rl && rr <= lr || ll >= rl && lr <= rr
 
-isOverlapping :: ((Integer, Integer), (Integer, Integer)) -> Bool
+isOverlapping :: (Range, Range) -> Bool
 isOverlapping ((ll, lr), (rl, rr)) = lr >= rl && ll <= rr
 
 main :: IO()
