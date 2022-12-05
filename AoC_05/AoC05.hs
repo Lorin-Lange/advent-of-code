@@ -36,8 +36,8 @@ parseMove :: String -> Move
 parseMove s = let s0 = drop 5 s
                   (n, s1) = getNumber s0 ""
                   (f, s2) = getNumber (drop 6 s1) ""
-                  (t, _) = getNumber (drop 4 s2) "" in
-              Move {n = n, from = f, to = t}
+                  (t, _)  = getNumber (drop 4 s2) "" 
+              in Move { n = n, from = f, to = t }
 
 getNumber :: String -> String -> (Int, String)
 getNumber [x] s | x `elem` ['0'..'9'] = (read (s ++ [x]), "") 
@@ -63,8 +63,8 @@ applyMove Move { n = n, from = f, to = t } l =
       let stacks = oneMove l f t in
       applyMove Move { n = n - 1, from = f, to = t } stacks
 
-threeMoves :: Move -> Stacks -> Stacks
-threeMoves Move { n = n, from = f, to = t } st = 
+applyMoves :: Move -> Stacks -> Stacks
+applyMoves Move { n = n, from = f, to = t } st = 
       let f0 = fromJust $ M.lookup f st
           t0 = fromJust $ M.lookup t st
           m0 = M.insert t (take n f0 ++ t0) st
@@ -88,5 +88,5 @@ main = do
     let res1 = M.toList $ evalState (rearrange moves applyMove) stacks
     print $ map (\(_,s) -> head s) res1
     print "Result of part two"
-    let res2 = M.toList $ evalState (rearrange moves threeMoves) stacks
+    let res2 = M.toList $ evalState (rearrange moves applyMoves) stacks
     print $ map (\(_,s) -> head s) res2
