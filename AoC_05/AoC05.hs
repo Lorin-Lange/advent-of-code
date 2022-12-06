@@ -46,6 +46,7 @@ getNumber st@(x:xs) s | x `elem` ['0'..'9'] = getNumber xs (s ++ [x])
                       | otherwise = (read s, st)
 
 type Stacks = M.Map Int Stack
+type MoveFunction = Move -> Stacks -> Stacks
 
 safeTail :: Stack -> Stack
 safeTail []     = []
@@ -57,25 +58,31 @@ oneMove st from to = let f0 = fromJust $ M.lookup from st
                          m0 = if null f0 then st else M.insert to (head f0 : t0) st
                      in M.insert from (safeTail f0) m0
 
-applyMove :: Move -> Stacks -> Stacks
+applyMove :: MoveFunction
 applyMove Move { n = 0, from = _, to = _ } l = l
 applyMove Move { n = n, from = f, to = t } l = 
       let stacks = oneMove l f t in
       applyMove Move { n = n - 1, from = f, to = t } stacks
 
-applyMoves :: Move -> Stacks -> Stacks
+applyMoves :: MoveFunction
 applyMoves Move { n = n, from = f, to = t } st = 
       let f0 = fromJust $ M.lookup f st
           t0 = fromJust $ M.lookup t st
           m0 = M.insert t (take n f0 ++ t0) st
       in M.insert f (drop n f0) m0
 
-rearrange :: [Move] -> (Move -> Stacks -> Stacks) -> State Stacks Stacks
+rearrange :: [Move] -> MoveFunction -> State Stacks Stacks
 rearrange []     _ = get
 rearrange (x:xs) f = do
     st <- get
     put $ f x st
     rearrange xs f
+
+-- The function rearrange' does the same as rearrange 
+-- without using the state monad.
+rearrange' :: [Move] -> MoveFunction -> Stacks -> Stacks
+rearrange' []     _ s = s
+rearrange' (x:xs) f s = rearrange' xs f (f x s)
 
 main :: IO()
 main = do
@@ -84,9 +91,19 @@ main = do
     let stacks = M.fromList $ zip [1..9] (map init stackData)
     let instructionData = drop 10 i
     let moves = getMoves instructionData
+
     print "Result of part one"
     let res1 = M.toList $ evalState (rearrange moves applyMove) stacks
     print $ map (\(_,s) -> head s) res1
+
+    print "Without state monad:"
+    let res11 = M.toList $ rearrange' moves applyMove stacks
+    print $ map (\(_,s) -> head s) res11
+
     print "Result of part two"
     let res2 = M.toList $ evalState (rearrange moves applyMoves) stacks
     print $ map (\(_,s) -> head s) res2
+
+    print "Without state monad:"
+    let res22 = M.toList $ rearrange' moves applyMoves stacks
+    print $ map (\(_,s) -> head s) res22
