@@ -84,6 +84,9 @@ rearrange' :: [Move] -> MoveFunction -> Stacks -> Stacks
 rearrange' []     _ s = s
 rearrange' (x:xs) f s = rearrange' xs f (f x s)
 
+rearrange'' :: [Move] -> MoveFunction -> Stacks -> Stacks
+rearrange'' m f s = foldl (flip f) s m
+
 main :: IO()
 main = do
     i <- getInput
@@ -100,6 +103,10 @@ main = do
     let res11 = M.toList $ rearrange' moves applyMove stacks
     print $ map (\(_,s) -> head s) res11
 
+    print "With foldl:"
+    let res111 = M.toList $ rearrange'' moves applyMove stacks
+    print $ map (\(_,s) -> head s) res111
+
     print "Result of part two"
     let res2 = M.toList $ evalState (rearrange moves applyMoves) stacks
     print $ map (\(_,s) -> head s) res2
@@ -107,3 +114,7 @@ main = do
     print "Without state monad:"
     let res22 = M.toList $ rearrange' moves applyMoves stacks
     print $ map (\(_,s) -> head s) res22
+
+    print "With foldl:"
+    let res222 = M.toList $ rearrange'' moves applyMoves stacks
+    print $ map (\(_,s) -> head s) res222
