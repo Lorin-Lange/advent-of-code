@@ -88,7 +88,8 @@ parseDIR = do
     return $ D dir
 
 parser :: Parser CLI
-parser = choice $ map try [parseFile, parseLS, parseCD, parseCDdot, parseDIR]
+parser = choice $ map try 
+   [parseFile, parseLS, parseCD, parseCDdot, parseDIR]
 
 type Path = [String]
 
@@ -102,10 +103,10 @@ parseFS []     _ = get
 parseFS (x:xs) p = do
     fs <- get
     case x of
-        (CD "/") -> do case M.lookup [] fs of
-                           Nothing -> do put $ M.insert [] [] fs
-                                         parseFS xs []
-                           (Just _) -> parseFS xs []
+        (CD "/") -> case M.lookup [] fs of
+            Nothing -> do put $ M.insert [] [] fs
+                          parseFS xs []
+            (Just _) -> parseFS xs []
         LS -> parseFS xs p
         (F size name) -> do let lst = fromJust $ M.lookup p fs
                             put $ M.insert p (File size name : lst) fs
@@ -114,15 +115,17 @@ parseFS (x:xs) p = do
                        let newDir = p ++ [name]
                        put $ M.insert newDir [] $ M.insert p (Dir newDir : lst) fs
                        parseFS xs p
-        (CD "..") -> do parseFS xs (init p)
-        (CD name) -> do parseFS xs $ p ++ [name]
+        (CD "..") -> parseFS xs (init p)
+        (CD name) -> parseFS xs $ p ++ [name]
 
 sizes :: [(Path, [DirOrFile])] -> FS -> [(Path, Integer)]
 sizes lst m = map (\(p, l) -> (p, calculateSize p l m)) lst
 
 calculateSize :: Path -> [DirOrFile] -> FS -> Integer
-calculateSize _ []          _         = 0
-calculateSize p ((Dir path)  : xs) m = calculateSize path (fromJust $ M.lookup path m) m + calculateSize p xs m
+calculateSize _ []                   _ = 0
+calculateSize p ((Dir path)    : xs) m = 
+    calculateSize path (fromJust $ M.lookup path m) m + 
+    calculateSize p xs m
 calculateSize p ((File size _) : xs) m = size + calculateSize p xs m
 
 main :: IO ()
