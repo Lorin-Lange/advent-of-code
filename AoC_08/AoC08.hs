@@ -21,7 +21,6 @@ testInput = "30373\n\
             \33549\n\
             \35390"
 
-
 f :: [(Int, Int, Bool)] -> [(Int, Int, Bool)]
 f = scanl1 (\(i2, lm2, b2) (i1, lm1, b1) -> (i1, max i1 lm2, i1 > lm2))
 
