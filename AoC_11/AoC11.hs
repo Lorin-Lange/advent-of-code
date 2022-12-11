@@ -6,7 +6,7 @@
 --                                                --
 ----------------------------------------------------
 
-module Main where
+module AoC11 where
 
 import Data.List.Split ( splitOn , chunksOf )
 import Control.Monad.State (get, put, evalState)
@@ -89,24 +89,16 @@ playRounds r i mb = do
                     put (newMVec, newC)
                     playRounds r i mb
 
-doMonkeyBusiness :: MonkeyBusiness
-doMonkeyBusiness m = let n    = operation m $ head $ items m
-                         newN = n `div` 3
-                         it   = tail $ items m
-                         newM = m { items = it }
-                         mId  = if test m newN then ifTrue m else ifFalse m
-                     in (newM, (mId, newN))
+doMonkeyBusiness :: (Integer -> Integer) -> MonkeyBusiness
+doMonkeyBusiness f m = let n    = operation m $ head $ items m
+                           newN = f n
+                           it   = tail $ items m
+                           newM = m { items = it }
+                           mId  = if test m newN then ifTrue m else ifFalse m
+                       in (newM, (mId, newN))
 
 divisor :: Integer
 divisor = product [13, 19, 5, 2, 17, 11, 7, 3]
-
-doMonkeyBusiness' :: MonkeyBusiness
-doMonkeyBusiness' m = let n    = operation m $ head $ items m
-                          newN = n `mod` divisor
-                          it   = tail $ items m
-                          newM = m { items = it }
-                          mId  = if test m newN then ifTrue m else ifFalse m
-                      in (newM, (mId, newN))
 
 main :: IO ()
 main = do
@@ -114,11 +106,11 @@ main = do
     let monkeyState = parseMonkeys input
 
     print "Result of part one"
-    let ms = evalState (playRounds 20 0 doMonkeyBusiness) monkeyState
+    let ms = evalState (playRounds 20 0 (doMonkeyBusiness (`div` 3))) monkeyState
     let res1 = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
     print res1
 
     print "Result of part two"
-    let ms = evalState (playRounds 10000 0 doMonkeyBusiness') monkeyState
+    let ms = evalState (playRounds 10000 0 (doMonkeyBusiness (`mod` divisor))) monkeyState
     let res2 = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
     print res2
