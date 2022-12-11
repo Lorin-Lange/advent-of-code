@@ -6,7 +6,7 @@
 --                                                --
 ----------------------------------------------------
 
-module AoC11 where
+module Main where
 
 import Data.List.Split ( splitOn , chunksOf )
 import Control.Monad.State (get, put, evalState)
@@ -21,11 +21,13 @@ type Counter = Vector Int
 
 type MonkeyState = (Vector Monkey, Counter)
 
+type MonkeyBusiness = Monkey -> (Monkey, (MonkeyId, Integer))
+
 data Monkey = Monkey
     { monkeyId  :: MonkeyId
-    , items     :: [Int]
-    , operation :: Int -> Int
-    , test      :: Int -> Bool
+    , items     :: [Integer]
+    , operation :: Integer -> Integer
+    , test      :: Integer -> Bool
     , ifTrue    :: MonkeyId
     , ifFalse   :: MonkeyId }
 
@@ -35,18 +37,18 @@ getInput = lines <$> readFile "./input.txt"
 getId :: String -> MonkeyId
 getId str = read $ init $ drop 7 str
 
-getItems :: String -> [Int]
+getItems :: String -> [Integer]
 getItems str = map read $ splitOn ", " (drop 18 str)
 
-getOperation :: String -> (Int -> Int)
+getOperation :: String -> (Integer -> Integer)
 getOperation str = let s = drop 23 str in opH s
-    where opH :: String -> (Int -> Int)
+    where opH :: String -> (Integer -> Integer)
           opH ('+':' ':"old") = \i -> i + i
           opH ('*':' ':"old") = \i -> i * i
-          opH ('+':' ':xs) = \i -> i + read xs
-          opH ('*':' ':xs) = \i -> i * read xs
+          opH ('+':' ':xs)    = \i -> i + read xs
+          opH ('*':' ':xs)    = \i -> i * read xs
 
-getTest:: String -> (Int -> Bool)
+getTest:: String -> (Integer -> Bool)
 getTest str = let ii = read (drop 21 str) in (\i -> i `mod` ii == 0)
 
 getIfTrue :: String -> MonkeyId
@@ -68,26 +70,26 @@ parseMonkeys :: [String] -> MonkeyState
 parseMonkeys str = let lst = map parseMonkey $ chunksOf 7 str in
     (V.fromList lst, V.replicate (length lst) 0)
 
-playRounds :: Int -> Int -> State MonkeyState MonkeyState
-playRounds 0 _ = get
-playRounds r i = do
+playRounds :: Int -> Int -> MonkeyBusiness -> State MonkeyState MonkeyState
+playRounds 0 _ _  = get
+playRounds r i mb = do
     (mvec, c) <- get
     case mvec V.!? i of
-        Nothing -> playRounds (r-1) 0
+        Nothing -> playRounds (r-1) 0 mb
         (Just m) -> do
             if null $ items m
-            then playRounds r (i+1)
+            then playRounds r (i+1) mb
             else do let n    = c V.! i
                     let newC = V.update c $ V.singleton (i, n+1)
-                    let (nm, (mId, res)) = doMonkeyBusiness m
+                    let (nm, (mId, res)) = mb m
                     let newMVec' = V.update mvec $ V.singleton (i, nm)
                     let um = mvec V.! mId
                     let umm = um { items = items um ++ [res] }
                     let newMVec = V.update newMVec' $ V.singleton (mId, umm)
                     put (newMVec, newC)
-                    playRounds r i
+                    playRounds r i mb
 
-doMonkeyBusiness :: Monkey -> (Monkey, (MonkeyId, Int))
+doMonkeyBusiness :: MonkeyBusiness
 doMonkeyBusiness m = let n    = operation m $ head $ items m
                          newN = n `div` 3
                          it   = tail $ items m
@@ -95,14 +97,28 @@ doMonkeyBusiness m = let n    = operation m $ head $ items m
                          mId  = if test m newN then ifTrue m else ifFalse m
                      in (newM, (mId, newN))
 
+divisor :: Integer
+divisor = product [13, 19, 5, 2, 17, 11, 7, 3]
+
+doMonkeyBusiness' :: MonkeyBusiness
+doMonkeyBusiness' m = let n    = operation m $ head $ items m
+                          newN = n `mod` divisor
+                          it   = tail $ items m
+                          newM = m { items = it }
+                          mId  = if test m newN then ifTrue m else ifFalse m
+                      in (newM, (mId, newN))
+
 main :: IO ()
 main = do
     input <- getInput
     let monkeyState = parseMonkeys input
-    print "Result of part one"
-    let ms = evalState (playRounds 20 0) monkeyState
-    print $ map items $ V.toList $ fst ms
 
-    let res = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
-    print res
+    print "Result of part one"
+    let ms = evalState (playRounds 20 0 doMonkeyBusiness) monkeyState
+    let res1 = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
+    print res1
+
     print "Result of part two"
+    let ms = evalState (playRounds 10000 0 doMonkeyBusiness') monkeyState
+    let res2 = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
+    print res2
