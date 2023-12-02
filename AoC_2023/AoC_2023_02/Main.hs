@@ -22,9 +22,9 @@ parseGame g =
 condition :: Game -> Bool
 condition (_, lst) = all (all (\t -> 
     case t of
-        ("red", n)   -> n <= 12
+        ("red",   n) -> n <= 12
         ("green", n) -> n <= 13
-        ("blue", n)  -> n <= 14
+        ("blue",  n) -> n <= 14
      )) lst 
 
 getProduct :: Game -> Int
@@ -39,9 +39,8 @@ getProduct (_, lst) =
 main :: IO()
 main = do
     file <- readFile "input.txt"
-    let input = lines file
-    let games = map parseGame input
-    
+    let games = map parseGame $ lines file
+
     let partOne = sum $ map (\(id, _) -> id) $ filter condition games
     print partOne
 
