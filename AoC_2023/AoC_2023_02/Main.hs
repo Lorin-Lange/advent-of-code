@@ -16,10 +16,8 @@ parseGame g =
         id   = read $ drop 5 (head inp)
         lsts = map (splitOn ",") $ splitOn ";" (inp !! 1)
     in (id, map parserH lsts)
-
-parserH :: [String] -> [(String, Int)]
-parserH = map (\s -> let r = splitOn " " s 
-                     in (r !! 2, read $ r !! 1))
+    where parserH = map (\s -> let r = splitOn " " s 
+                               in (r !! 2, read $ r !! 1))
 
 condition :: Game -> Bool
 condition (_, lst) = all (all (\t -> 
@@ -31,14 +29,11 @@ condition (_, lst) = all (all (\t ->
 
 getProduct :: Game -> Int
 getProduct (_, lst) =
-    let (_, red)   = getMax lst "red"
-        (_, blue)  = getMax lst "blue"
-        (_, green) = getMax lst "green"
+    let (_, red)   = getMax "red" lst
+        (_, blue)  = getMax "blue" lst
+        (_, green) = getMax "green" lst
     in red * blue * green
-
-getMax :: [[(String, Int)]] -> String -> (String, Int)
-getMax lst color = 
-    maximum $ concatMap (\l -> filter (\(s,_) -> s == color) l) lst
+    where getMax color = maximum . concatMap (filter (\(s, _) -> s == color))
 
 main :: IO()
 main = do
