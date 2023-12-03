@@ -1,4 +1,4 @@
-# Advent of Code 2023
+# 🦌🎅🏻⛄🎁 Advent of Code 2023 ☃️❄️🤶🎄
 - [x] Day 1
 - [x] Day 2
 - [ ] Day 3
