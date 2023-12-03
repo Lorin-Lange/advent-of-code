@@ -40,11 +40,10 @@ getInfos lst@(x:xs) l c | isDigit x = let number = takeWhile isDigit lst
                         | otherwise = getInfos xs l $ c + 1
 
 getSpecificSymbols :: [String] -> (Char -> Bool) -> Set.Set (Int, Int)
-getSpecificSymbols lst f = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
-    where getSymbolsH s y = 
-            Set.fromList $ map (\(c,x) -> (x,y)) 
-                         $ filter (\(c,_) -> f c) 
-                         $ zip s [0..]
+getSpecificSymbols lst p = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
+    where getSymbolsH s y = Set.fromList $ map (\(c,x) -> (x,y)) 
+                                         $ filter (\(c,_) -> p c) 
+                                         $ zip s [0..]
 
 getSymbols :: [String] -> Set.Set (Int, Int)
 getSymbols lst = getSpecificSymbols lst $ \c -> c /= '.' && not (isDigit c)
