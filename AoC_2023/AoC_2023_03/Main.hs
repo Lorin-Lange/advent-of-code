@@ -46,13 +46,24 @@ getSymbols lst = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
                          $ filter (\(c,_) -> c /= '.' && not (isDigit c)) 
                          $ zip s [0..]
 
+getStars :: [String] -> Set.Set (Int, Int)
+getStars lst = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
+    where getSymbolsH s y = 
+            Set.fromList $ map (\(c,x) -> (x,y)) 
+                         $ filter (\(c,_) -> c == '*') 
+                         $ zip s [0..]
+
 main :: IO()
 main = do
     file <- readFile "input.txt"
     let input = lines file
     let set   = getSymbols input
     let infos = getCoordinates input
-    print infos
 
     let partOne = sum $ map number $ filter (isAdjacent set) infos
     print partOne
+
+    let stars = map (\t -> Set.fromList [t]) $ Set.toList $ getStars input
+
+    let partTwo = sum $ map (\l -> product $ map number l) $ filter (\l -> length l == 2) $ map (\s -> filter (isAdjacent s) infos) stars
+    print partTwo
