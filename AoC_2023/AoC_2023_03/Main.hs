@@ -32,11 +32,10 @@ getInfos ""         _ _ = []
 getInfos ('.':xs)   l c = getInfos xs l $ c + 1
 getInfos lst@(x:xs) l c | isDigit x = let number = takeWhile isDigit lst
                                           rest   = drop (length number) lst
-                                      in Info { start = c, 
-                                                end = c + length number - 1, 
-                                                line = l, 
-                                                number = read number } : 
-                                                getInfos rest l (c + length number)
+                                      in Info { start  = c, 
+                                                end    = c + length number - 1, 
+                                                line   = l, 
+                                                number = read number } : getInfos rest l (c + length number)
                         | otherwise = getInfos xs l $ c + 1
 
 getSpecificSymbols :: [String] -> (Char -> Bool) -> Set.Set (Int, Int)
