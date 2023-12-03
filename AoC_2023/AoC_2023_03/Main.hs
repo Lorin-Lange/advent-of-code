@@ -39,19 +39,18 @@ getInfos lst@(x:xs) l c | isDigit x = let number = takeWhile isDigit lst
                                                 getInfos rest l (c + length number)
                         | otherwise = getInfos xs l $ c + 1
 
-getSymbols :: [String] -> Set.Set (Int, Int)
-getSymbols lst = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
+getSpecificSymbols :: [String] -> (Char -> Bool) -> Set.Set (Int, Int)
+getSpecificSymbols lst f = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
     where getSymbolsH s y = 
             Set.fromList $ map (\(c,x) -> (x,y)) 
-                         $ filter (\(c,_) -> c /= '.' && not (isDigit c)) 
+                         $ filter (\(c,_) -> f c) 
                          $ zip s [0..]
 
+getSymbols :: [String] -> Set.Set (Int, Int)
+getSymbols lst = getSpecificSymbols lst $ \c -> c /= '.' && not (isDigit c)
+
 getStars :: [String] -> Set.Set (Int, Int)
-getStars lst = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
-    where getSymbolsH s y = 
-            Set.fromList $ map (\(c,x) -> (x,y)) 
-                         $ filter (\(c,_) -> c == '*') 
-                         $ zip s [0..]
+getStars lst = getSpecificSymbols lst $ \c -> c == '*'
 
 main :: IO()
 main = do
