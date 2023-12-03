@@ -9,12 +9,11 @@ module Main where
 import qualified Data.Set as Set
 import Data.Char (isDigit)
 
-data Info = Info {
-      start  :: Int
+data Info = Info 
+    { start  :: Int
     , end    :: Int
     , line   :: Int
-    , number :: Int
-} deriving Show
+    , number :: Int } deriving Show
 
 isAdjacent :: Set.Set (Int, Int) -> Info -> Bool
 isAdjacent set info = 
