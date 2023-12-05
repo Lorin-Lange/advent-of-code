@@ -20,18 +20,16 @@ parseCard s =
         set   = map read $ filter (/= "") $ splitOn " " (cards !! 1)
     in (id, lst, Set.fromList set)
 
+numOfMatches :: Set.Set Int -> [Int] -> Int
+numOfMatches set = length . filter (\x -> Set.member x set)
+
 calculate1 :: Card -> Int
 calculate1 (_, lst, set) = 
-    let n = length $ calcH lst set
+    let n = numOfMatches set lst
     in if n == 0 then 0 else 2^(n-1)
 
-calcH :: [Int] -> Set.Set Int -> [Int]
-calcH []     s = []
-calcH (x:xs) s | Set.member x s = x : calcH xs s
-               | otherwise      =     calcH xs s
-
 calculate2 :: [Card] -> [(Int, Int, Int)]
-calculate2 = calc . map (\(i, l, s) -> (i, length $ calcH l s, 1))
+calculate2 = calc . map (\(i, l, s) -> (i, numOfMatches s l, 1))
     where calc []                = []
           calc (tu@(_, n, m):xs) =
               let next = map (\(id, no, t) -> (id, no, t + m)) $ take n xs
