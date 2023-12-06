@@ -10,9 +10,8 @@ import Data.Char (isDigit)
 import Data.List (isPrefixOf)
 
 getNumbers :: String -> Int
-getNumbers inp = 
-    let nums = filter isDigit inp
-    in read [head nums, last nums]
+getNumbers inp = read [head nums, last nums]
+    where nums = filter isDigit inp
 
 substitute :: String -> String 
 substitute ""         = ""
