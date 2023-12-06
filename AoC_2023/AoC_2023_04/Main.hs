@@ -14,11 +14,10 @@ type Card = (Int, [Int], Set.Set Int)
 parseCard :: String -> Card
 parseCard s =
     let inp   = splitOn ":" s
-        id    = read $ drop 5 (head inp)
+        id'   = read $ drop 5 (head inp)
         cards = splitOn "|" (inp !! 1)
-        lst   = map read $ filter (/= "") $ splitOn " " (head cards)
-        set   = map read $ filter (/= "") $ splitOn " " (cards !! 1)
-    in (id, lst, Set.fromList set)
+    in (id', getList $ head cards, Set.fromList $ getList $ cards !! 1)
+    where getList = map read $ filter (/= "") $ splitOn " "
 
 numOfMatches :: Set.Set Int -> [Int] -> Int
 numOfMatches set = length . filter (\x -> Set.member x set)
