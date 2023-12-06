@@ -37,17 +37,17 @@ getInfos lst@(x:xs) l c | isDigit x = let number = takeWhile isDigit lst
                                                 number = read number } : getInfos rest l (c + length number)
                         | otherwise = getInfos xs l $ c + 1
 
-getSpecificSymbols :: [String] -> (Char -> Bool) -> Set.Set (Int, Int)
-getSpecificSymbols lst p = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
+getSpecificSymbols :: (Char -> Bool) -> [String] -> Set.Set (Int, Int)
+getSpecificSymbols p lst = Set.unions . map (\(s, l) -> getSymbolsH s l) $ zip lst [0..]
     where getSymbolsH s y = Set.fromList $ map (\(_,x) -> (x,y)) 
                                          $ filter (\(c,_) -> p c) 
                                          $ zip s [0..]
 
 getSymbols :: [String] -> Set.Set (Int, Int)
-getSymbols lst = getSpecificSymbols lst $ \c -> c /= '.' && not (isDigit c)
+getSymbols = getSpecificSymbols $ \c -> c /= '.' && not (isDigit c)
 
 getStars :: [String] -> Set.Set (Int, Int)
-getStars lst = getSpecificSymbols lst $ \c -> c == '*'
+getStars = getSpecificSymbols $ \c -> c == '*'
 
 main :: IO()
 main = do
