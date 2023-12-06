@@ -17,8 +17,10 @@ parseRace [s1, s2] = (getNum s1, getNum s2)
     where getNum s = read $ filter (/= ' ') $ splitOn ":" s !! 1
 
 numberOfWays :: (Int, Int) -> Int
-numberOfWays i@(t, _) = length $ filter (possible i) [1..t-1]
-    where possible (t, d) pt = pt * (t - pt) > d
+numberOfWays (t, d) = 
+    let b  = fromIntegral t / 2
+        d' = sqrt $ b * b - fromIntegral d
+    in ceiling (b + d' - 1) - floor (b - d' + 1) + 1  
 
 main :: IO()
 main = do
