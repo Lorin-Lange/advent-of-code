@@ -28,13 +28,8 @@ condition (_, lst) = all (all (\t ->
      )) lst 
 
 getProduct :: Game -> Int
-getProduct (_, lst) =
-    let red   = getMax "red" lst
-        blue  = getMax "blue" lst
-        green = getMax "green" lst
-    in red * blue * green
-    where getMax color = snd . maximum . concatMap 
-            (filter $ \(s, _) -> s == color)
+getProduct (_, lst) = product $ map getMax ["red", "blue", "green"]
+    where getMax c = snd . maximum $ concatMap (filter $ \(s, _) -> s == c) lst
 
 main :: IO()
 main = do
