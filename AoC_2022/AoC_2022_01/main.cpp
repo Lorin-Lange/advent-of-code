@@ -19,7 +19,7 @@ int main() {
     file.open(FILE_NAME);
     vector<int> list;
     if(file.is_open()) {
-        long sum = 0;
+        int sum = 0;
         string line;
         while(file) {
             getline(file, line);
