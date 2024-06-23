@@ -22,7 +22,6 @@ typedef struct S {
     char c;
     color col;
     int distance;
-    S *pred;
     pair<int, int> pos;
 } S;
 
@@ -43,7 +42,6 @@ int bfs(pair<int, int> s, const vector<string> grid) {
             s.c = grid[i][j];
             s.col = color::white;
             s.distance = numeric_limits<int>::max();
-            s.pred = nullptr;
             s.pos = pair(j, i);
             new_grid[i][j] = s;
         }
@@ -53,7 +51,6 @@ int bfs(pair<int, int> s, const vector<string> grid) {
     start.c = grid[s.second][s.first];
     start.col = color::gray;
     start.distance = 0;
-    start.pred = nullptr;
     start.pos = s;
 
     queue<S> queue;
@@ -71,7 +68,6 @@ int bfs(pair<int, int> s, const vector<string> grid) {
             S local = new_grid[p.pos.second][p.pos.first + 1];
             local.col = color::gray;
             local.distance = p.distance + 1;
-            local.pred = &p;
             new_grid[p.pos.second][p.pos.first + 1] = local;
             queue.push(local);
         }
@@ -82,7 +78,6 @@ int bfs(pair<int, int> s, const vector<string> grid) {
             S local = new_grid[p.pos.second][p.pos.first - 1];
             local.col = color::gray;
             local.distance = p.distance + 1;
-            local.pred = &p;
             new_grid[p.pos.second][p.pos.first - 1] = local;
             queue.push(local);
         }
@@ -93,7 +88,6 @@ int bfs(pair<int, int> s, const vector<string> grid) {
             S local = new_grid[p.pos.second + 1][p.pos.first];
             local.col = color::gray;
             local.distance = p.distance + 1;
-            local.pred = &p;
             new_grid[p.pos.second + 1][p.pos.first] = local;
             queue.push(local);
         }
@@ -104,7 +98,6 @@ int bfs(pair<int, int> s, const vector<string> grid) {
             S local = new_grid[p.pos.second - 1][p.pos.first];
             local.col = color::gray;
             local.distance = p.distance + 1;
-            local.pred = &p;
             new_grid[p.pos.second - 1][p.pos.first] = local;
             queue.push(local);
         }
@@ -142,7 +135,7 @@ int main() {
         }
     }
 
-    std::cout << "Part 1: " << bfs(start, grid) << endl;
+    cout << "Part 1: " << bfs(start, grid) << endl;
 
     // Part 2:
     vector<pair<int, int>> start_positions;
@@ -161,7 +154,7 @@ int main() {
         paths.push_back(bfs(p, grid));
     }
     auto min = min_element(paths.begin(), paths.end()); 
-    std::cout << "Part 2: " << *min << endl;
+    cout << "Part 2: " << *min << endl;
 
     return EXIT_SUCCESS;
 }
