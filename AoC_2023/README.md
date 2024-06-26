@@ -16,8 +16,8 @@
 - [ ] Day 15
 - [ ] Day 16
 - [ ] Day 17
-- [ ] Day 18
-- [ ] Day 19
+- [x] Day 18
+- [ ] Day 19 (Part 1: Haskell)
 - [ ] Day 20
 - [ ] Day 21
 - [ ] Day 22
