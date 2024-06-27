@@ -34,12 +34,10 @@ picksTheorem area boundary =
     in interior + boundary
 
 parseInput1 :: String -> (Char, Int)
-parseInput1 (c:_:xs) = let [n, _] = splitOn " " xs
-                       in (c, read n)
+parseInput1 (c:_:xs) = (c, read . head $ splitOn " " xs)
 
 parseInput2 :: String -> (Char, Int)
-parseInput2 (c:_:xs) = let [_, n']  = splitOn "#" xs
-                           n        = init n'
+parseInput2 (c:_:xs) = let n        = init $ splitOn "#" xs !! 1
                            [(i, _)] = readHex $ init n
                        in (convertChar $ last n, i)
                        where convertChar '0' = 'R'
