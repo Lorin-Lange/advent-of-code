@@ -4,9 +4,7 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module Main where
-
-import Data.List.Split (splitOn)
+import Data.List.Split ( splitOn )
 
 parseRaces :: [String] -> [(Int, Int)]
 parseRaces [s1, s2] = zip (getList s1) (getList s2)
@@ -24,13 +22,10 @@ numberOfWays (t, d) =
 
 main :: IO()
 main = do
-    file <- readFile "input.txt"
-    let input = lines file
+    input <- lines <$> readFile "input.txt"
 
-    let races = parseRaces input
-    let firstPart = product $ map numberOfWays races
-    print firstPart
+    let firstPart = product . map numberOfWays $ parseRaces input
+    putStrLn $ "Part 1: " ++ show firstPart
 
-    let race = parseRace input
-    let secondPart = numberOfWays race
-    print secondPart
+    let secondPart = numberOfWays $ parseRace input
+    putStrLn $ "Part 2: " ++ show secondPart
