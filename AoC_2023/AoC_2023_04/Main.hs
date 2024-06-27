@@ -4,10 +4,8 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module Main where
-
 import qualified Data.Set as Set
-import Data.List.Split (splitOn)
+import Data.List.Split ( splitOn )
 
 type Card = (Int, [Int], Set.Set Int)
 
@@ -37,12 +35,12 @@ calculate2 = calc . map (\(i, l, s) -> (i, numOfMatches s l, 1))
 
 main :: IO()
 main = do
-    file <- readFile "input.txt"
-    let input = lines file
+    input <- lines <$> readFile "input.txt"
+
     let cards = map parseCard input
 
     let partOne = sum $ map calculate1 cards
-    print partOne
-
+    putStrLn $ "Part 1: " ++ show partOne
+    
     let partTwo = sum $ map (\(_, _, t) -> t) $ calculate2 cards
-    print partTwo
+    putStrLn $ "Part 2: " ++ show partTwo
