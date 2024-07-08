@@ -18,12 +18,12 @@ using namespace std;
 
 enum class color { white, gray, black };
 
-typedef struct S {
+struct S {
     char c;
     color col;
     int distance;
     pair<int, int> pos;
-} S;
+};
 
 bool comp_chars(char my_pos, char target) {
     if(target == 'E') return (int)'z' - 48 - 1 <= (int)my_pos - 48;
@@ -31,7 +31,7 @@ bool comp_chars(char my_pos, char target) {
     return (int)target - 48 - 1 <= (int)my_pos - 48;
 }
 
-int bfs(pair<int, int> s, const vector<string> grid) {
+int bfs(const pair<int, int> s, const vector<string> grid) {
     const int MAX_X = grid[0].length();
     const int MAX_Y = grid.size();
 
@@ -56,12 +56,13 @@ int bfs(pair<int, int> s, const vector<string> grid) {
     queue<S> queue;
     queue.push(start);
 
+
     while(!queue.empty()) {
         auto p = queue.front();
         queue.pop();
 
         if(p.c == 'E') return p.distance;
-        
+
         if(p.pos.first + 1 < MAX_X &&
            new_grid[p.pos.second][p.pos.first + 1].col == color::white &&
            comp_chars(p.c, new_grid[p.pos.second][p.pos.first + 1].c)) {
@@ -124,7 +125,7 @@ int main() {
     file.close();
 
     // Part 1:
-    pair<int,int> start;
+    pair<int, int> start;
     for(int x = 0; x < grid[0].length(); x++) {
         for(int y = 0; y < grid.size(); y++) {
             if(grid[y][x] == 'S') {
