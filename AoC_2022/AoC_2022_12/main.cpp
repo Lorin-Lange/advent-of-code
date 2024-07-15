@@ -26,9 +26,10 @@ struct S {
 };
 
 bool comp_chars(char my_pos, char target) {
-    if(target == 'E') return (int)'z' - 48 - 1 <= (int)my_pos - 48;
-    if(my_pos == 'S') return (int)target - 48 - 1 <= (int)'a' - 48;
-    return (int)target - 48 - 1 <= (int)my_pos - 48;
+    const int ZERO = '0';
+    if(target == 'E') return 'z' - ZERO - 1 <= my_pos - ZERO;
+    if(my_pos == 'S') return target - ZERO - 1 <= 'a' - ZERO;
+    return target - ZERO - 1 <= my_pos - ZERO;
 }
 
 int bfs(const pair<int, int> s, const vector<string> grid) {
@@ -151,10 +152,10 @@ int main() {
     }
 
     vector<int> paths;
-    for(auto p : start_positions) {
-        paths.push_back(bfs(p, grid));
+    for(auto pos : start_positions) {
+        paths.push_back(bfs(pos, grid));
     }
-    auto min = min_element(paths.begin(), paths.end()); 
+    auto min = min_element(paths.begin(), paths.end());
     cout << "Part 2: " << *min << endl;
 
     return EXIT_SUCCESS;
