@@ -1,10 +1,10 @@
-# Advent of Code 2022
+# 🦌🎅🏻⛄🎁 Advent of Code 2022 ☃️❄️🤶🎄
 - [x] Day 1 (C++, Haskell)
 - [ ] Day 2
 - [ ] Day 3
 - [ ] Day 4
 - [ ] Day 5
-- [ ] Day 6
+- [x] Day 6 (Haskell)
 - [ ] Day 7
 - [ ] Day 8
 - [ ] Day 9
@@ -23,4 +23,4 @@
 - [ ] Day 22
 - [ ] Day 23
 - [ ] Day 24
-- [ ] Day 25
+- [x] Day 25 (C++, Haskell)
