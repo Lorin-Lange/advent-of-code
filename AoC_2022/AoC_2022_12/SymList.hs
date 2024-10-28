@@ -1,3 +1,9 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--        Day 12: Hill Climbing Algorithm         --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
 module SymList where
 
 type SymList a = ([a], [a])
