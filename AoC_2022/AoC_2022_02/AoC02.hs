@@ -1,9 +1,7 @@
 ----------------------------------------------------
---                                                --
 --              Advent of Code 2022               --
 --           Day 2: Rock Paper Scissors           --
 --            Solution by Lorin Lange             --
---                                                --
 ----------------------------------------------------
 
 module AoC02 where
@@ -34,7 +32,7 @@ calculateResult Rock Scissors  = Win
 calculateResult Scissors Paper = Win
 calculateResult Paper Rock     = Win
 calculateResult opponent you | opponent == you = Draw
-                             | otherwise = Loss
+                             | otherwise       = Loss
 
 parseShape1 :: String -> Shape
 parseShape1 "X" = Rock
@@ -53,7 +51,7 @@ calculateScore :: (Shape, Shape) -> Score
 calculateScore (opp, p) = scoreOfShape p + scoreOfRes (calculateResult p opp)
 
 getInput :: IO [(String, String)]
-getInput = do lst <- lines <$> readFile "./input.txt"
+getInput = do lst <- lines <$> readFile "input.txt"
               return $ map ((\ l -> (head l, head $ tail l)) . endBy " ") lst
 
 parseInput1 :: [(String, String)] -> [(Shape, Shape)]
@@ -71,10 +69,12 @@ calculateMove (Rock, Loss)     = (Rock, Scissors)
 calculateMove (Paper, Loss)    = (Paper, Rock)
 calculateMove (Scissors, Loss) = (Scissors, Paper)
 
+-- Result of part 1: 15691
+-- Result of part 2: 12989
 main :: IO ()
 main = do
     lst <- getInput
-    print "Result of part one"
-    print $ sum $ map calculateScore (parseInput1 lst)
-    print "Result of part two"
-    print $ sum $ map (calculateScore . calculateMove) (parseInput2 lst)
+    let part1 = show $ sum $ map calculateScore $ parseInput1 lst
+    let part2 = show $ sum $ map (calculateScore . calculateMove) (parseInput2 lst)
+    putStrLn $ "Result of part 1: " ++ part1
+    putStrLn $ "Result of part 2: " ++ part2
