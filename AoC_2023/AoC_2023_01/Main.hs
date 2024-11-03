@@ -6,8 +6,8 @@
 
 module Main where
 
-import Data.Char (isDigit)
-import Data.List (isPrefixOf)
+import Data.Char ( isDigit )
+import Data.List ( isPrefixOf )
 
 getNumbers :: String -> Int
 getNumbers inp = read [head nums, last nums]
@@ -28,11 +28,10 @@ substitute str@(x:xs) | "one"   `isPrefixOf` str = '1' : substitute xs
 
 main :: IO()
 main = do
-    file <- readFile "input.txt"
-    let input = lines file
+    input <- lines <$> readFile "input.txt"
 
     let part1 = sum $ map getNumbers input
-    print part1
+    putStrLn $ "Part 1: " ++ show part1
 
     let part2 = sum $ map (getNumbers . substitute) input
-    print part2
+    putStrLn $ "Part 2: " ++ show part2
