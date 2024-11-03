@@ -7,10 +7,10 @@
 module AoC06 where
 
 checkString :: String -> Int -> Int -> Int
-checkString str i len =
-    let isValid = isDifferent $ map (str !!) range
-        range   = [0+i..len+i-1]
-    in if isValid then maximum range + 1 else checkString str (i+1) len
+checkString str i len | isValid   = maximum range + 1 
+                      | otherwise = checkString str (i+1) len
+    where isValid = isDifferent $ map (str !!) range
+          range   = [i..len+i-1]
 
 isDifferent :: String -> Bool
 isDifferent = all (\((_, c1), (_, c2)) -> c1 /= c2) 
@@ -22,5 +22,5 @@ isDifferent = all (\((_, c1), (_, c2)) -> c1 /= c2)
 main :: IO()
 main = do
     input <- readFile "./input.txt"
-    putStrLn $ "Result of part one: " ++ show (checkString input 0 4)
-    putStrLn $ "Result of part two: " ++ show (checkString input 0 14)
+    putStrLn $ "Result of part 1: " ++ show (checkString input 0 4)  -- 1109
+    putStrLn $ "Result of part 2: " ++ show (checkString input 0 14) -- 3965
