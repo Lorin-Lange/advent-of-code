@@ -13,7 +13,7 @@ getNumbers :: String -> Int
 getNumbers inp = read [head nums, last nums]
     where nums = filter isDigit inp
 
-substitute :: String -> String 
+substitute :: String -> String
 substitute ""         = ""
 substitute str@(x:xs) | "one"   `isPrefixOf` str = '1' : substitute xs
                       | "two"   `isPrefixOf` str = '2' : substitute xs
