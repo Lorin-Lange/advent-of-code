@@ -52,7 +52,7 @@ calculateScore (opp, p) = scoreOfShape p + scoreOfRes (calculateResult p opp)
 
 getInput :: IO [(String, String)]
 getInput = do lst <- lines <$> readFile "input.txt"
-              return $ map ((\ l -> (head l, head $ tail l)) . endBy " ") lst
+              return $ map ((\l -> (head l, head $ tail l)) . endBy " ") lst
 
 parseInput1 :: [(String, String)] -> [(Shape, Shape)]
 parseInput1 = map $ bimap parseShape1 parseShape1
@@ -69,12 +69,10 @@ calculateMove (Rock, Loss)     = (Rock, Scissors)
 calculateMove (Paper, Loss)    = (Paper, Rock)
 calculateMove (Scissors, Loss) = (Scissors, Paper)
 
--- Result of part 1: 15691
--- Result of part 2: 12989
 main :: IO ()
 main = do
     lst <- getInput
     let part1 = show $ sum $ map calculateScore $ parseInput1 lst
     let part2 = show $ sum $ map (calculateScore . calculateMove) (parseInput2 lst)
-    putStrLn $ "Result of part 1: " ++ part1
-    putStrLn $ "Result of part 2: " ++ part2
+    putStrLn $ "Result of part 1: " ++ part1 -- Result of part 1: 15691
+    putStrLn $ "Result of part 2: " ++ part2 -- Result of part 2: 12989
