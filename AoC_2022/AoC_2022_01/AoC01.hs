@@ -7,19 +7,20 @@
 module AoC01 where
 
 import Text.Read ( readMaybe )
-import Data.List ( sort )
+import Data.List ( sortBy )
 import Data.List.Split ( endBy )
 import Data.Maybe ( fromMaybe )
+import Data.Ord ( Down(Down), comparing ) 
 
 getInput :: IO [Maybe Integer]
-getInput = do lst <- lines <$> readFile "test_input.txt"
+getInput = do lst <- lines <$> readFile "input.txt"
               return $ map readMaybe lst
 
 getSums :: [Maybe Integer] -> [Integer]
-getSums = reverse . sort . map (sum . map (fromMaybe 0)) . endBy [Nothing]
+getSums = sortBy (comparing Down) . map (sum . map (fromMaybe 0)) . endBy [Nothing]
 
 main :: IO()
 main = do
     sums <- getSums <$> getInput
-    putStrLn $ "Part 1: " ++ show (head sums)
-    putStrLn $ "Part 2: " ++ show (sum $ take 3 sums)
+    putStrLn $ "Part 1: " ++ show (head sums)         --  68442
+    putStrLn $ "Part 2: " ++ show (sum $ take 3 sums) -- 204837

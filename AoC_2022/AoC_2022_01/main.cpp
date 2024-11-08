@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <vector>
 
-#define FILE_NAME "input.txt"
+#define FILE_NAME "test_input.txt"
 
 using namespace std;
 
