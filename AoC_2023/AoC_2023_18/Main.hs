@@ -13,9 +13,9 @@ getCoordinates :: [(Char, Int)] -> Coordinate -> [Coordinate]
 getCoordinates [] coord = [coord]
 getCoordinates ((c, n):xs) (x, y) = 
     (x, y) : getCoordinates xs (x + dx * n, y + dy * n)
-    where (dx, dy) = co c
-          co 'U' = ( 0, -1); co 'D' = (0, 1)
-          co 'L' = (-1,  0); co 'R' = (1, 0)
+    where (dx, dy) = coo c
+          coo 'U' = ( 0, -1); coo 'D' = (0, 1)
+          coo 'L' = (-1,  0); coo 'R' = (1, 0)
 
 determinant :: Num a => (a, a) -> (a, a) -> a
 determinant (x1, y1) (x2, y2) = x1 * y2 - x2 * y1
