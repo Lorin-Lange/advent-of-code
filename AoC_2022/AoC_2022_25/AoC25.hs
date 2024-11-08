@@ -15,10 +15,10 @@ parse = map c where
   c '=' = -2; c '-' = -1; c '0' = 0; c '1' = 1; c '2' = 2
 
 toSNAFU :: Integer -> String
-toSNAFU 0 = []
-toSNAFU i = let (i', r) = (i + 2) `divMod` 5 
-            in toSNAFU i' ++ [c r]
-  where c 0 = '='; c 1 = '-'; c 2 = '0'; c 3 = '1'; c 4 = '2'
+toSNAFU 0 = ""
+toSNAFU i = toSNAFU i' ++ [c r]
+  where (i', r) = (i + 2) `divMod` 5
+        c 0 = '='; c 1 = '-'; c 2 = '0'; c 3 = '1'; c 4 = '2'
 
 main :: IO ()
 main = do
