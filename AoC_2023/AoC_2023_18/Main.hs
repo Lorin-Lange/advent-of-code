@@ -46,13 +46,13 @@ main = do
     inp <- lines <$> readFile "input.txt"
 
     let lst1      = map parseInput1 inp
-    let area1     = shoelaceFormula (getCoordinates lst1 (0, 0))
+    let area1     = shoelaceFormula $ getCoordinates lst1 (0, 0)
     let boundary1 = fromIntegral $ sum $ map snd lst1
     let res1      = floor $ picksTheorem area1 boundary1
     putStrLn $ "Part 1: " ++ show res1
 
     let lst2      = map parseInput2 inp
-    let area2     = shoelaceFormula (getCoordinates lst2 (0, 0))
+    let area2     = shoelaceFormula $ getCoordinates lst2 (0, 0)
     let boundary2 = fromIntegral $ sum $ map snd lst2
     let res2      = floor $ picksTheorem area2 boundary2
     putStrLn $ "Part 2: " ++ show res2
