@@ -1,5 +1,5 @@
 # 🦌🎅🏻⛄🎁 Advent of Code 2022 ☃️❄️🤶🎄
-- [x] Day 1 (C++, Haskell)
+- [x] Day 1 (Haskell, C++)
 - [x] Day 2 (Haskell)
 - [ ] Day 3
 - [ ] Day 4
@@ -10,7 +10,7 @@
 - [ ] Day 9
 - [ ] Day 10
 - [ ] Day 11
-- [x] Day 12 (C++)
+- [x] Day 12 (Haskell, C++)
 - [ ] Day 13
 - [ ] Day 14
 - [ ] Day 15
@@ -23,4 +23,4 @@
 - [ ] Day 22
 - [ ] Day 23
 - [ ] Day 24
-- [x] Day 25 (C++, Haskell)
+- [x] Day 25 (Haskell, C++)
