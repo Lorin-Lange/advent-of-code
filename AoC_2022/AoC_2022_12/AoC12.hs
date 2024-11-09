@@ -29,11 +29,9 @@ data Info = Info
 type Graph = Map.Map Pos Info
 
 bfs :: Graph -> (Pos -> [Pos]) -> Pos -> Int
-bfs g n s =
-    let q  = Q.enqueue Q.emptyQueue s
-        v  = (g Map.! s) { label = Grey, dist = 0 }
-        g' = Map.insert s v g
-    in bfsHelper q n g'
+bfs g n s = let q  = Q.enqueue Q.emptyQueue s
+                v  = (g Map.! s) { label = Grey, dist = 0 }
+            in bfsHelper q n (Map.insert s v g)
 
 bfsHelper :: Queue -> (Pos -> [Pos]) -> Graph -> Int
 bfsHelper q nexts g =
@@ -50,20 +48,15 @@ bfsHelper q nexts g =
 updateGraph :: Pos -> [Pos] -> Graph -> Queue -> (Graph, Queue)
 updateGraph _ [] g q     = (g, q)
 updateGraph p (x:xs) g q 
-    | isPossible p x g = 
+    | not $ isPossible p x g = updateGraph p xs g q
+    | otherwise              =
         let info = (g Map.! x) { label = Grey, dist = (g Map.! p).dist + 1 }
-            g'   = Map.insert x info g
-            q'   = Q.enqueue q x
-        in updateGraph p xs g' q'
-    | otherwise        = updateGraph p xs g q
+        in updateGraph p xs (Map.insert x info g) (Q.enqueue q x)
 
 isPossible :: Pos -> Pos -> Graph -> Bool
-isPossible is target g = 
-    compareChars (g Map.! is).char (g Map.! target).char
-
-compareChars :: Char -> Char -> Bool
-compareChars is target = ord' target <= ord' is + 1
-    where ord' 'S' = ord 'a'; ord' 'E' = ord 'z'; ord' a = ord a
+isPossible i t g = compareChars (g Map.! i).char (g Map.! t).char
+    where compareChars is target = ord' target <= ord' is + 1
+          ord' 'S' = ord 'a'; ord' 'E' = ord 'z'; ord' a = ord a
 
 nextsH :: Pos -> Pos -> [Pos]
 nextsH (maxR, maxC) (r, c) = filter
@@ -86,7 +79,7 @@ makeGraph = Map.fromList . concatMap helper . zip [0..]
 
 main :: IO()
 main = do
-    input <- lines <$> readFile "test_input.txt"
+    input <- lines <$> readFile "input.txt"
     let nexts = nextsH (length $ head input, length input)
     let graph = makeGraph input
 
