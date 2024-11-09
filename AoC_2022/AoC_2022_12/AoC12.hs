@@ -7,7 +7,7 @@
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 
-module AoC12 where
+module Main where
 
 import qualified Data.Map.Strict as Map
 import qualified Queue as Q

@@ -4,32 +4,31 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module Queue where
+module Queue' where
 
-import qualified Data.Sequence as Seq
+import SymList ( 
+    consSL, initSL, 
+    lastSL, nilSL, 
+    nullSL, SymList )
 
-type Queue a = Seq.Seq a
+type Queue a = SymList a
 
 emptyQueue :: Queue a
-emptyQueue = Seq.empty
+emptyQueue = nilSL
 
 enqueue :: Queue a -> a -> Queue a
-enqueue queue x = x Seq.<| queue
+enqueue queue x = consSL x queue
 
 dequeue :: Queue a -> Maybe (a, Queue a)
-dequeue queue = 
-    case Seq.viewr queue of
-        Seq.EmptyR   -> Nothing
-        (s Seq.:> x) -> Just (x, s)
+dequeue ([], []) = Nothing
+dequeue queue    = Just (lastSL queue, initSL queue)
 
 peek :: Queue a -> Maybe a
-peek queue =
-    case Seq.viewr queue of
-        Seq.EmptyR   -> Nothing
-        (s Seq.:> x) -> Just x
+peek ([], []) = Nothing
+peek queue    = Just $ lastSL queue
 
 notEmpty :: Queue a -> Bool
-notEmpty = not . Seq.null
+notEmpty = not . nullSL
 
 enqueueFromList :: Queue a -> [a] -> Queue a
 enqueueFromList = foldl enqueue
