@@ -48,13 +48,13 @@ bfsHelper q nexts g =
 updateGraph :: Pos -> [Pos] -> Graph -> Queue -> (Graph, Queue)
 updateGraph _ [] g q     = (g, q)
 updateGraph p (x:xs) g q 
-    | not $ isPossible p x g = updateGraph p xs g q
-    | otherwise              =
+    | notPossible p x g = updateGraph p xs g q
+    | otherwise         =
         let info = (g Map.! x) { label = Grey, dist = (g Map.! p).dist + 1 }
         in updateGraph p xs (Map.insert x info g) (Q.enqueue q x)
 
-isPossible :: Pos -> Pos -> Graph -> Bool
-isPossible i t g = compareChars (g Map.! i).char (g Map.! t).char
+notPossible :: Pos -> Pos -> Graph -> Bool
+notPossible i t g = not $ compareChars (g Map.! i).char (g Map.! t).char
     where compareChars is target = ord' target <= ord' is + 1
           ord' 'S' = ord 'a'; ord' 'E' = ord 'z'; ord' a = ord a
 
