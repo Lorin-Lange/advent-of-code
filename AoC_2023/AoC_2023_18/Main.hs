@@ -7,10 +7,8 @@
 import Data.List.Split ( splitOn )
 import Numeric ( readHex )
 
-type Coordinate = (Int, Int)
-
-getCoordinates :: [(Char, Int)] -> Coordinate -> [Coordinate]
-getCoordinates [] coord = [coord]
+getCoordinates :: [(Char, Int)] -> (Int, Int) -> [(Int, Int)]
+getCoordinates []           coord = [coord]
 getCoordinates ((c, n):xs) (x, y) = 
     (x, y) : getCoordinates xs (x + dx * n, y + dy * n)
     where (dx, dy) = coo c
@@ -20,7 +18,7 @@ getCoordinates ((c, n):xs) (x, y) =
 determinant :: Num a => (a, a) -> (a, a) -> a
 determinant (x1, y1) (x2, y2) = x1 * y2 - x2 * y1
 
-shoelaceFormula :: [Coordinate] -> Double
+shoelaceFormula :: [(Int, Int)] -> Double
 shoelaceFormula lst = (0.5 *) 
                     . fromIntegral 
                     . sum 
