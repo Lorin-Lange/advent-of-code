@@ -57,7 +57,6 @@ int bfs(const pair<int, int> s, const vector<string> grid) {
     queue<S> queue;
     queue.push(start);
 
-
     while(!queue.empty()) {
         auto p = queue.front();
         queue.pop();
@@ -104,7 +103,7 @@ int bfs(const pair<int, int> s, const vector<string> grid) {
             queue.push(local);
         }
 
-        new_grid[p.pos.second][p.pos.first].col = color::black; 
+        new_grid[p.pos.second][p.pos.first].col = color::black;
     }
 
     return numeric_limits<int>::max();

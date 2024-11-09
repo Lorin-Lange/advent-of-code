@@ -6,7 +6,10 @@
 
 module Queue where
 
-import SymList
+import SymList ( 
+    consSL, initSL, 
+    lastSL, nilSL, 
+    nullSL, SymList )
 
 type Queue a = SymList a
 

@@ -1,0 +1,16 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--        Day 12: Hill Climbing Algorithm         --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+
+Part 1: 31
+Part 2: 29
+
+
+input.txt:
+
+Part 1: 339
+Part 2: 332
