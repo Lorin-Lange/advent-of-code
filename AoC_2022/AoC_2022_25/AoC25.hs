@@ -4,6 +4,8 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
+{-# Language LambdaCase #-}
+
 module AoC25 where
 
 toDecimal :: [Integer] -> Integer
@@ -13,12 +15,12 @@ toSNAFU :: Integer -> String
 toSNAFU 0 = ""
 toSNAFU i = toSNAFU i' ++ [c r]
   where (i', r) = (i + 2) `divMod` 5
-        c 0 = '='; c 1 = '-'; c 2 = '0'; c 3 = '1'; c 4 = '2'
+        c = \case 0 -> '='; 1 -> '-'; 2 -> '0'; 3 -> '1'; 4 -> '2'
 
 parse :: String -> [Integer]
-parse = map c where c '=' = -2; c '-' = -1; c '0' = 0; c '1' = 1; c '2' = 2
+parse = map $ \case '=' -> -2; '-' -> -1; '0' -> 0; '1' -> 1; '2' -> 2
 
 main :: IO ()
-main = do input <- lines <$> readFile "input.txt"
+main = do input <- lines <$> readFile "test_input.txt"
           let res = toSNAFU . sum . map (toDecimal . parse) $ input
           putStrLn $ "Result: " ++ res

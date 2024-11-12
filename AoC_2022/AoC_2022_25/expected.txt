@@ -1,0 +1,11 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--            Day 25: Full of Hot Air             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Result: 2=-1=0
+
+input.txt:
+Result: 2-212-2---=00-1--102
