@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--            Day 1: Calorie Counting             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 24000
+Part 2: 45000
+
+input.txt:
+Part 1: 68442
+Part 2: 204837
