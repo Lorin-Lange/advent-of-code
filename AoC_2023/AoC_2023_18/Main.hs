@@ -4,16 +4,16 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
+{-# Language LambdaCase #-}
+
 import Data.List.Split ( splitOn )
 import Numeric ( readHex )
 
 getCoordinates :: [(Char, Int)] -> (Int, Int) -> [(Int, Int)]
 getCoordinates []           coord = [coord]
 getCoordinates ((c, n):xs) (x, y) = 
-    (x, y) : getCoordinates xs (x + dx * n, y + dy * n)
-    where (dx, dy) = coo c
-          coo 'U' = ( 0, -1); coo 'D' = (0, 1)
-          coo 'L' = (-1,  0); coo 'R' = (1, 0)
+    (x, y) : getCoordinates xs (x + dx * n, y + dy * n) where 
+    (dx, dy) = \case 'U' -> (0, -1); 'D' -> (0, 1); 'L' -> (-1, 0); 'R' -> (1, 0); $ c
 
 determinant :: Num a => (a, a) -> (a, a) -> a
 determinant (x1, y1) (x2, y2) = x1 * y2 - x2 * y1
@@ -35,8 +35,7 @@ parseInput2 :: String -> (Char, Int)
 parseInput2 (c:_:xs) = (cc $ last n, i)
     where [(i, _)] = readHex $ init n
           n = init $ splitOn "#" xs !! 1
-          cc '2' = 'L'; cc '0' = 'R'
-          cc '3' = 'U'; cc '1' = 'D'
+          cc = \case '2' -> 'L'; '0' -> 'R'; '3' -> 'U'; '1' -> 'D'
 
 computeSolution :: [String] -> (String -> (Char, Int)) -> Integer
 computeSolution inp parse = floor $ picksTheorem area boundary
