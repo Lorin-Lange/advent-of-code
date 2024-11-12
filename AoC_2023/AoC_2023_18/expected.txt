@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2023               --
+--            Day 18: Lavaduct Lagoon             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 62
+Part 2: 952408144115
+
+input.txt:
+Part 1: 28911
+Part 2: 77366737561114

@@ -25,9 +25,8 @@ shoelaceFormula lst = (0.5 *)
                     . zipWith determinant lst $ tail lst ++ [head lst]
 
 picksTheorem :: Double -> Double -> Double
-picksTheorem area boundary =
-    let interior = area - boundary / 2 + 1
-    in interior + boundary
+picksTheorem area boundary = interior + boundary
+    where interior = area - boundary / 2 + 1
 
 parseInput1 :: String -> (Char, Int)
 parseInput1 (c:_:xs) = (c, read . head $ splitOn " " xs)
@@ -39,18 +38,13 @@ parseInput2 (c:_:xs) = (cc $ last n, i)
           cc '2' = 'L'; cc '0' = 'R'
           cc '3' = 'U'; cc '1' = 'D'
 
+computeSolution :: [String] -> (String -> (Char, Int)) -> Integer
+computeSolution inp parse = floor $ picksTheorem area boundary
+    where lst      = map parse inp
+          area     = shoelaceFormula $ getCoordinates lst (0, 0)
+          boundary = fromIntegral $ sum $ map snd lst
+
 main :: IO()
-main = do
-    inp <- lines <$> readFile "input.txt"
-
-    let lst1      = map parseInput1 inp
-    let area1     = shoelaceFormula $ getCoordinates lst1 (0, 0)
-    let boundary1 = fromIntegral $ sum $ map snd lst1
-    let res1      = floor $ picksTheorem area1 boundary1
-    putStrLn $ "Part 1: " ++ show res1
-
-    let lst2      = map parseInput2 inp
-    let area2     = shoelaceFormula $ getCoordinates lst2 (0, 0)
-    let boundary2 = fromIntegral $ sum $ map snd lst2
-    let res2      = floor $ picksTheorem area2 boundary2
-    putStrLn $ "Part 2: " ++ show res2
+main = do inp <- lines <$> readFile "input.txt"
+          putStrLn $ "Part 1: " ++ show (computeSolution inp parseInput1)
+          putStrLn $ "Part 2: " ++ show (computeSolution inp parseInput2)
