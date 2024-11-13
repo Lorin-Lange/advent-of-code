@@ -30,11 +30,10 @@ pixel (c, x) | pos `elem` sprite = '#'
           sprite = [x - 1, x, x + 1]
 
 main :: IO ()
-main = do
-    lst <- apply . parseInput . lines <$> readFile "input.txt"
+main = do lst <- apply . parseInput . lines <$> readFile "input.txt"
 
-    let res1 = sum $ map (\n -> n * fromJust (lookup n lst)) [20, 60..220]
-    putStrLn $ "Part 1: " ++ show res1
+          let res1 = sum $ map (\n -> n * fromJust (lookup n lst)) [20, 60..220]
+          putStrLn $ "Part 1: " ++ show res1
 
-    let res2 = intercalate "\n" . chunksOf 40 . map pixel $ init lst
-    putStrLn $ "Part 2:\n" ++ res2
+          let res2 = intercalate "\n" . chunksOf 40 . map pixel $ init lst
+          putStrLn $ "Part 2:\n" ++ res2
