@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--            Day 13: Distress Signal             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 13
+Part 2: 140
+
+input.txt:
+Part 1: 5198
+Part 2: 22344
