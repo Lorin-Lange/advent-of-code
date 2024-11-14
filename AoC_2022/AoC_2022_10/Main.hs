@@ -8,7 +8,7 @@ module Main where
 
 import Data.List ( lookup, intercalate )
 import Data.Maybe ( fromJust )
-import Data.List.Split (chunksOf)
+import Data.List.Split ( chunksOf )
 
 data Data = Noop | Addx Int
     deriving Show
@@ -24,10 +24,8 @@ apply = scanl f (1, 1) . zip [2..]
           f (_, v) (i, Addx n) = (i, v + n)
 
 pixel :: (Int, Int) -> Char
-pixel (c, x) | pos `elem` sprite = '#'
-             | otherwise         = '.'
-    where pos    = (c - 1) `rem` 40
-          sprite = [x - 1, x, x + 1]
+pixel (c, x) = if pos >= x-1 && pos <= x+1 then '#' else '.'
+    where pos = (c - 1) `rem` 40
 
 main :: IO ()
 main = do lst <- apply . parseInput . lines <$> readFile "input.txt"
