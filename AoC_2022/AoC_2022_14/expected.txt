@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--           Day 14: Regolith Reservoir           --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt
+Part 1: 24
+Part 2: 93
+
+input.txt:
+Part 1: 858
+Part 2: 26845
