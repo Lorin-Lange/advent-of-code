@@ -6,6 +6,8 @@
 
 {-# Language LambdaCase #-}
 
+module Main where
+
 import Data.List.Split ( splitOn )
 import Numeric ( readHex )
 
@@ -37,13 +39,12 @@ parseInput2 (c:_:xs) = (cc $ last n, i)
           n = init $ splitOn "#" xs !! 1
           cc = \case '2' -> 'L'; '0' -> 'R'; '3' -> 'U'; '1' -> 'D'
 
-computeSolution :: [String] -> (String -> (Char, Int)) -> Integer
-computeSolution inp parse = floor $ picksTheorem area boundary
-    where lst      = map parse inp
-          area     = shoelaceFormula $ getCoordinates lst (0, 0)
+computeSolution :: [(Char, Int)] -> Integer
+computeSolution lst = floor $ picksTheorem area boundary
+    where area     = shoelaceFormula $ getCoordinates lst (0, 0)
           boundary = fromIntegral $ sum $ map snd lst
 
 main :: IO()
 main = do inp <- lines <$> readFile "input.txt"
-          putStrLn $ "Part 1: " ++ show (computeSolution inp parseInput1)
-          putStrLn $ "Part 2: " ++ show (computeSolution inp parseInput2)
+          putStrLn $ "Part 1: " ++ show (computeSolution $ map parseInput1 inp)
+          putStrLn $ "Part 2: " ++ show (computeSolution $ map parseInput2 inp)
