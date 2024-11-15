@@ -1,19 +1,19 @@
 # 🦌🎅🏻⛄🎁 Advent of Code 2022 ☃️❄️🤶🎄
-- [x] Day 1
-- [x] Day 2 (Haskell)
-- [x] Day 3 (Haskell)
-- [x] Day 4 (Haskell)
-- [x] Day 5 (Haskell)
-- [x] Day 6 (Haskell)
-- [x] Day 7 (Haskell)
-- [x] Day 8 (Haskell)
-- [ ] Day 9 (Part 1 in Haskell)
-- [x] Day 10 (Haskell)
-- [x] Day 11 (Haskell)
-- [x] Day 12
-- [x] Day 13 (Haskell)
-- [ ] Day 14
-- [ ] Day 15 (Part 1 in Haskell)
+- [x] Day  1: ⭐⭐
+- [x] Day  2: ⭐⭐ (Haskell)
+- [x] Day  3: ⭐⭐ (Haskell)
+- [x] Day  4: ⭐⭐ (Haskell)
+- [x] Day  5: ⭐⭐ (Haskell)
+- [x] Day  6: ⭐⭐ (Haskell)
+- [x] Day  7: ⭐⭐ (Haskell)
+- [x] Day  8: ⭐⭐ (Haskell)
+- [ ] Day  9: ⭐ (Part 1 in Haskell)
+- [x] Day 10: ⭐⭐ (Haskell)
+- [x] Day 11: ⭐⭐ (Haskell)
+- [x] Day 12: ⭐⭐
+- [x] Day 13: ⭐⭐ (Haskell)
+- [x] Day 14: ⭐⭐ (Haskell)
+- [ ] Day 15: ⭐ (Part 1 in Haskell)
 - [ ] Day 16
 - [ ] Day 17
 - [ ] Day 18
@@ -23,4 +23,4 @@
 - [ ] Day 22
 - [ ] Day 23
 - [ ] Day 24 (sort of)
-- [x] Day 25
+- [x] Day 25: ⭐⭐
