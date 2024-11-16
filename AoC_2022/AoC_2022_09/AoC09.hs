@@ -1,9 +1,7 @@
 ----------------------------------------------------
---                                                --
 --              Advent of Code 2022               --
 --               Day 9: Rope Bridge               --
 --            Solution by Lorin Lange             --
---                                                --
 ----------------------------------------------------
 
 module AoC09 where
@@ -19,13 +17,13 @@ data Dir = U Int | D Int | L Int | R Int
 
 testInput :: String
 testInput = "R 4\n\
-               \U 4\n\
-               \L 3\n\
-               \D 1\n\
-               \R 4\n\
-               \D 1\n\
-               \L 5\n\
-               \R 2"
+            \U 4\n\
+            \L 3\n\
+            \D 1\n\
+            \R 4\n\
+            \D 1\n\
+            \L 5\n\
+            \R 2"
 
 getInput :: IO [String]
 getInput = lines <$> readFile "./input.txt"
