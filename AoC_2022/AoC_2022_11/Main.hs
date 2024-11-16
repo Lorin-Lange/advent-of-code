@@ -1,19 +1,18 @@
 ----------------------------------------------------
---                                                --
 --              Advent of Code 2022               --
 --          Day 11: Monkey in the Middle          --
 --            Solution by Lorin Lange             --
---                                                --
 ----------------------------------------------------
 
-module AoC11 where
+module Main where
 
 import Data.List.Split ( splitOn , chunksOf )
 import Control.Monad.State (get, put, evalState)
 import Control.Monad.State.Lazy (State)
 import qualified Data.Vector as V
 import Data.Vector (Vector)
-import Data.List ( sort )
+import Data.List ( sort, sortBy )
+import Data.Ord (comparing, Down (Down))
 
 type MonkeyId = Int
 
@@ -31,9 +30,6 @@ data Monkey = Monkey
     , ifTrue    :: MonkeyId
     , ifFalse   :: MonkeyId }
 
-getInput :: IO [String]
-getInput = lines <$> readFile "./input.txt"
-
 getId :: String -> MonkeyId
 getId str = read $ init $ drop 7 str
 
@@ -41,9 +37,8 @@ getItems :: String -> [Integer]
 getItems str = map read $ splitOn ", " (drop 18 str)
 
 getOperation :: String -> (Integer -> Integer)
-getOperation str = let s = drop 23 str in opH s
-    where opH :: String -> (Integer -> Integer)
-          opH ('+':' ':"old") = \i -> i + i
+getOperation str = opH $ drop 23 str
+    where opH ('+':' ':"old") = \i -> i + i
           opH ('*':' ':"old") = \i -> i * i
           opH ('+':' ':xs)    = \i -> i + read xs
           opH ('*':' ':xs)    = \i -> i * read xs
@@ -102,15 +97,14 @@ divisor = product [13, 19, 5, 2, 17, 11, 7, 3]
 
 main :: IO ()
 main = do
-    input <- getInput
-    let monkeyState = parseMonkeys input
+    monkeyState <- parseMonkeys . lines <$> readFile "input.txt"
 
     print "Result of part one"
     let ms = evalState (playRounds 20 0 (doMonkeyBusiness (`div` 3))) monkeyState
-    let res1 = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
+    let res1 = product $ take 2 $ sortBy (comparing Down) (V.toList $ snd ms)
     print res1
 
     print "Result of part two"
     let ms = evalState (playRounds 10000 0 (doMonkeyBusiness (`mod` divisor))) monkeyState
-    let res2 = product $ take 2 $ reverse $ sort $ V.toList $ snd ms
+    let res2 = product $ take 2 $ sortBy (comparing Down) (V.toList $ snd ms)
     print res2
