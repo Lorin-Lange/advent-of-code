@@ -1,26 +1,28 @@
 # 🦌🎅🏻⛄🎁 Advent of Code 2022 ☃️❄️🤶🎄
-- [x] Day  1: ⭐⭐
-- [x] Day  2: ⭐⭐ (Haskell)
-- [x] Day  3: ⭐⭐ (Haskell)
-- [x] Day  4: ⭐⭐ (Haskell)
-- [x] Day  5: ⭐⭐ (Haskell)
-- [x] Day  6: ⭐⭐ (Haskell)
-- [x] Day  7: ⭐⭐ (Haskell)
-- [x] Day  8: ⭐⭐ (Haskell)
-- [ ] Day  9: ⭐ (Part 1 in Haskell)
-- [x] Day 10: ⭐⭐ (Haskell)
-- [x] Day 11: ⭐⭐ (Haskell)
-- [x] Day 12: ⭐⭐
-- [x] Day 13: ⭐⭐ (Haskell)
-- [x] Day 14: ⭐⭐ (Haskell)
-- [ ] Day 15: ⭐ (Part 1 in Haskell)
-- [ ] Day 16
-- [ ] Day 17
-- [ ] Day 18
-- [ ] Day 19
-- [ ] Day 20
-- [ ] Day 21
-- [ ] Day 22
-- [ ] Day 23
-- [ ] Day 24 (sort of)
-- [x] Day 25: ⭐⭐
+| Day | Stars | Languages    |
+| --: | :--:  | :----------: |
+|   1 | ⭐⭐  | Haskell, C++ |
+|   2 | ⭐⭐  | Haskell      |
+|   3 | ⭐⭐  | Haskell      |
+|   4 | ⭐⭐  | Haskell      |
+|   5 | ⭐⭐  | Haskell      |
+|   6 | ⭐⭐  | Haskell      |
+|   7 | ⭐⭐  | Haskell      |
+|   8 | ⭐⭐  | Haskell      |
+|   9 | ⭐    | Haskell, C++ |
+|  10 | ⭐⭐  | Haskell, C++ |
+|  11 | ⭐⭐  | Haskell, C++ |
+|  12 | ⭐⭐  | Haskell, C++ |
+|  13 | ⭐⭐  | Haskell      |
+|  14 | ⭐⭐  | Haskell, C++ |
+|  15 | ⭐    | Haskell      |
+|  16 |       | Haskell, C++ |
+|  17 |       | Haskell, C++ |
+|  18 |       | Haskell, C++ |
+|  19 |       | Haskell, C++ |
+|  20 |       | Haskell, C++ |
+|  21 |       | Haskell, C++ |
+|  22 |       | Haskell, C++ |
+|  23 |       | Haskell, C++ |
+|  24 |       | Haskell, C++ |
+|  25 | ⭐⭐  | Haskell, C++ |
