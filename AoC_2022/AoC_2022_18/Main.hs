@@ -18,8 +18,12 @@ isAdjacent (x1, y1, z1) (x2, y2, z2)
     || (y1 == y2 && z1 == z2 && (x1 == x2 - 1 || x1 == x2 + 1))
     || (z1 == z2 && x1 == x2 && (y1 == y2 - 1 || y1 == y2 + 1))
 
-surface :: [(Int, Int, Int)] -> Int
-surface lst = length lst * 6 - adjacent lst * 2
+totalSurface :: [(Int, Int, Int)] -> Int
+totalSurface lst = length lst * 6 - adjacent lst * 2
+
+trappedSurface :: [(Int, Int, Int)] -> Int
+trappedSurface lst = undefined
+
 
 parse :: String -> (Int, Int, Int)
 parse str = (read $ head lst, read $ lst !! 1, read $ lst !! 2)
@@ -28,7 +32,7 @@ parse str = (read $ head lst, read $ lst !! 1, read $ lst !! 2)
 main :: IO ()
 main = do
     inp <- map parse . lines <$> readFile "test_input.txt"
-    
-    putStrLn $ "Part 1: " ++ show (surface inp)
 
-    print "Result of part two"
+    let surface = totalSurface inp
+    putStrLn $ "Part 1: " ++ show surface
+    putStrLn $ "Part 2: " ++ show (surface - trappedSurface inp)

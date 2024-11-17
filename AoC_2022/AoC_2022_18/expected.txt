@@ -6,7 +6,7 @@
 
 test_input.txt:
 Part 1: 64
-Part 2:
+Part 2: 58
 
 input.txt:
 Part 1: 3530
