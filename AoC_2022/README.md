@@ -1,6 +1,6 @@
 # 🦌🎅🏻⛄🎁 Advent of Code 2022 ☃️❄️🤶🎄
 | Day | Stars | Languages    |
-| --: | :--:  | :----------: |
+| --: | :--:  | :----------  |
 |   1 | ⭐⭐  | Haskell, C++ |
 |   2 | ⭐⭐  | Haskell      |
 |   3 | ⭐⭐  | Haskell      |
@@ -16,13 +16,13 @@
 |  13 | ⭐⭐  | Haskell      |
 |  14 | ⭐⭐  | Haskell      |
 |  15 | ⭐    | Haskell      |
-|  16 |       |              |
-|  17 |       |              |
-|  18 |       |              |
-|  19 |       |              |
-|  20 |       |              |
-|  21 |       |              |
-|  22 |       |              |
-|  23 |       |              |
-|  24 |       |              |
+|  16 |       | Haskell      |
+|  17 |       | Haskell      |
+|  18 | ⭐    | Haskell      |
+|  19 |       | Haskell      |
+|  20 |       | Haskell      |
+|  21 |       | Haskell      |
+|  22 |       | Haskell      |
+|  23 |       | Haskell      |
+|  24 |       | Haskell      |
 |  25 | ⭐⭐  | Haskell, C++ |
