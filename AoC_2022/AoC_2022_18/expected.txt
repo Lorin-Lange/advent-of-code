@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2022               --
+--            Day 18: Boiling Boulders            --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 64
+Part 2:
+
+input.txt:
+Part 1: 3530
+Part 2:
