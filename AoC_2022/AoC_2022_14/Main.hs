@@ -22,18 +22,21 @@ type Check = (Int, Int) -> Grid -> Int -> Int
 getPoints :: [(Int, Int)] -> [(Int, Int)]
 getPoints []  = []
 getPoints [_] = []
-getPoints ((c1,r1):(c2,r2):xs)
-    | c1 == c2 && r1 < r2 = map (c1,) [r1..r2] ++ getPoints ((c2,r2):xs)
-    | c1 == c2 && r1 > r2 = map (c1,) [r2..r1] ++ getPoints ((c2,r2):xs)
-    | r1 == r2 && c1 < c2 = map (,r1) [c1..c2] ++ getPoints ((c2,r2):xs)
-    | r1 == r2 && c1 > c2 = map (,r1) [c2..c1] ++ getPoints ((c2,r2):xs)
+getPoints ((c1,r1):p@(c2,r2):xs)
+    | c1 == c2 && r1 < r2 = map (c1,) [r1..r2] ++ getPoints (p:xs)
+    | c1 == c2 && r1 > r2 = map (c1,) [r2..r1] ++ getPoints (p:xs)
+    | r1 == r2 && c1 < c2 = map (,r1) [c1..c2] ++ getPoints (p:xs)
+    | r1 == r2 && c1 > c2 = map (,r1) [c2..c1] ++ getPoints (p:xs)
 
 check :: Check -> Check
-check f k@(c, r) g counter = mbH (Map.lookup (c, r+1) g) (f (c, r+1) g counter) 
-                           . mbH (Map.lookup (c-1, r+1) g) (f (c-1, r+1) g counter)
-                           . mbH (Map.lookup (c+1, r+1) g) (f (500,-1) (Map.insert k Sand g) (counter + 1)) 
-                           $ f (c+1, r+1) g counter
-    where mbH (Just _) _ c = c; mbH Nothing  v _ = v
+check f k@(c, r) g counter = 
+    case Map.lookup (c, r+1) g of
+        (Just _) -> case Map.lookup (c-1, r+1) g of
+                        (Just _) -> case Map.lookup (c+1, r+1) g of
+                                        (Just _) -> f (500,-1) (Map.insert k Sand g) (counter + 1)
+                                        Nothing    -> f (c+1, r+1) g counter
+                        Nothing  -> f (c-1, r+1) g counter
+        Nothing  -> f (c, r+1) g counter
 
 check1 :: Int -> Check
 check1 max k@(_, r) g counter =
