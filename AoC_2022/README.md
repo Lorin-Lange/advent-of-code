@@ -18,7 +18,7 @@
 |  15 | ⭐    | Haskell      |
 |  16 |       | Haskell      |
 |  17 |       | Haskell      |
-|  18 | ⭐    | Haskell      |
+|  18 | ⭐⭐  | Haskell      |
 |  19 |       | Haskell      |
 |  20 |       | Haskell      |
 |  21 |       | Haskell      |

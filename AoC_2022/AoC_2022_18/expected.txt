@@ -10,4 +10,4 @@ Part 2: 58
 
 input.txt:
 Part 1: 3530
-Part 2:
+Part 2: ???
