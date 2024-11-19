@@ -10,7 +10,6 @@ module Main where
 
 import Data.List.Split ( endBy, splitOn )
 import qualified Data.Map as Map
-import Data.Maybe ( maybe, fromJust )
 import Data.Either.Utils ( fromEither, maybeToEither )
 
 data Material = Rock | Sand | Floor
@@ -50,7 +49,7 @@ parse :: String -> [(Int, Int)]
 parse = map (\st -> (read $ head $ splitOn "," st, read $ splitOn "," st !! 1)) . endBy " -> "
 
 main :: IO()
-main = do inp <- map parse . lines <$> readFile "test_input.txt"
+main = do inp <- map parse . lines <$> readFile "input.txt"
           let lst = map (, Rock) $ concatMap getPoints inp
           let maxR = maximum $ map (snd . fst) lst
 
