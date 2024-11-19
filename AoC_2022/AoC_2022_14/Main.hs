@@ -10,7 +10,8 @@ module Main where
 
 import Data.List.Split ( endBy, splitOn )
 import qualified Data.Map as Map
-import Data.Maybe ( maybe )
+import Data.Maybe ( maybe, fromJust )
+import Data.Either.Utils ( fromEither, maybeToEither )
 
 data Material = Rock | Sand | Floor
     deriving (Show, Eq)
@@ -29,14 +30,11 @@ getPoints ((c1,r1):p@(c2,r2):xs)
     | r1 == r2 && c1 > c2 = map (,r1) [c2..c1] ++ getPoints (p:xs)
 
 check :: Check -> Check
-check f k@(c, r) g counter = 
-    case Map.lookup (c, r+1) g of
-        (Just _) -> case Map.lookup (c-1, r+1) g of
-                        (Just _) -> case Map.lookup (c+1, r+1) g of
-                                        (Just _) -> f (500,-1) (Map.insert k Sand g) (counter + 1)
-                                        Nothing    -> f (c+1, r+1) g counter
-                        Nothing  -> f (c-1, r+1) g counter
-        Nothing  -> f (c, r+1) g counter
+check f k@(c, r) g counter = fromEither $
+    maybeToEither (f (c, r+1) g counter) (Map.lookup (c, r+1) g) >>
+    maybeToEither (f (c-1, r+1) g counter) (Map.lookup (c-1, r+1) g) >>
+    maybeToEither (f (c+1, r+1) g counter) (Map.lookup (c+1, r+1) g) >>
+    Right (f (500,-1) (Map.insert k Sand g) (counter + 1))
 
 check1 :: Int -> Check
 check1 max k@(_, r) g counter =
@@ -52,7 +50,7 @@ parse :: String -> [(Int, Int)]
 parse = map (\st -> (read $ head $ splitOn "," st, read $ splitOn "," st !! 1)) . endBy " -> "
 
 main :: IO()
-main = do inp <- map parse . lines <$> readFile "input.txt"
+main = do inp <- map parse . lines <$> readFile "test_input.txt"
           let lst = map (, Rock) $ concatMap getPoints inp
           let maxR = maximum $ map (snd . fst) lst
 
