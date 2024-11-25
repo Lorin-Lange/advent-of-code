@@ -24,5 +24,5 @@
 |  21 |       | Haskell      |
 |  22 |       | Haskell      |
 |  23 |       | Haskell      |
-|  24 |       | Haskell      |
+|  24 |       | Haskell, C++ |
 |  25 | ⭐⭐  | Haskell, C++ |
