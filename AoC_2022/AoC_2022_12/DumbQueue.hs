@@ -4,35 +4,26 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module Queue where
+module DumbQueue where
 
-import qualified Data.Sequence as Seq
-
-type Queue a = Seq.Seq a
+type Queue a = [a]
 
 emptyQueue :: Queue a
-emptyQueue = Seq.empty
+emptyQueue = []
 
 enqueue :: Queue a -> a -> Queue a
-enqueue queue x = x Seq.<| queue
+enqueue queue x = x : queue
 
 dequeue :: Queue a -> Maybe (a, Queue a)
-dequeue queue = 
-    case Seq.viewr queue of
-        Seq.EmptyR   -> Nothing
-        (s Seq.:> x) -> Just (x, s)
+dequeue []    = Nothing
+dequeue queue = Just (last queue, init queue)
 
 peek :: Queue a -> Maybe a
-peek queue =
-    case Seq.viewr queue of
-        Seq.EmptyR   -> Nothing
-        (s Seq.:> x) -> Just x
-
-null :: Queue a -> Bool
-null = Seq.null
+peek []    = Nothing
+peek queue = Just $ last queue
 
 notEmpty :: Queue a -> Bool
-notEmpty = not . Seq.null
+notEmpty = not . null
 
 enqueueFromList :: Queue a -> [a] -> Queue a
 enqueueFromList = foldl enqueue

@@ -4,7 +4,7 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module SymList where
+module SymmetricList where
 
 type SymList a = ([a], [a])
 

@@ -4,7 +4,7 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-{-# LANGUAGE OverloadedRecordDot #-}
+{-# LANGUAGE OverloadedRecordDot   #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module Main where
@@ -39,15 +39,15 @@ bfsHelper q nexts g =
         Nothing        -> maxBound
         (Just (p, q')) -> if (g Map.! p).char == 'E'
                             then (g Map.! p).dist
-                            else let paths = filter (\p' -> (g Map.! p').label == White) $ nexts p
+                            else let paths     = [p' | p' <- nexts p, (g Map.! p').label == White]
                                      (g', q'') = updateGraph p paths g q'
-                                     info = (g Map.! p) { label = Black }
-                                     graph = Map.insert p info g'
+                                     info      = (g Map.! p) { label = Black }
+                                     graph     = Map.insert p info g'
                                  in bfsHelper q'' nexts graph
 
 updateGraph :: Pos -> [Pos] -> Graph -> Queue -> (Graph, Queue)
-updateGraph _ [] g q     = (g, q)
-updateGraph p (x:xs) g q 
+updateGraph _ []     g q = (g, q)
+updateGraph p (x:xs) g q
     | notPossible p x g = updateGraph p xs g q
     | otherwise         =
         let info = (g Map.! x) { label = Grey, dist = (g Map.! p).dist + 1 }

@@ -4,9 +4,9 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module Queue' where
+module SymmetricListQueue where
 
-import SymList ( 
+import SymmetricList ( 
     consSL, initSL, 
     lastSL, nilSL, 
     nullSL, SymList )
