@@ -9,8 +9,8 @@
 module Main where
 
 import Data.List.Split ( endBy, splitOn )
-import qualified Data.Map as Map
 import Data.Either.Utils ( fromEither, maybeToEither )
+import qualified Data.Map as Map
 
 data Material = Rock | Sand | Floor
     deriving (Show, Eq)
@@ -30,10 +30,10 @@ getPoints ((c1,r1):p@(c2,r2):xs)
 
 check :: Check -> Check
 check f k@(c, r) g counter = fromEither $
-    maybeToEither (f (c, r+1) g counter) (Map.lookup (c, r+1) g) >>
+    maybeToEither (f (c,   r+1) g counter) (Map.lookup (c,   r+1) g) >>
     maybeToEither (f (c-1, r+1) g counter) (Map.lookup (c-1, r+1) g) >>
     maybeToEither (f (c+1, r+1) g counter) (Map.lookup (c+1, r+1) g) >>
-    Right (f (500,-1) (Map.insert k Sand g) (counter + 1))
+    Right (f (500, -1) (Map.insert k Sand g) (counter + 1))
 
 check1 :: Int -> Check
 check1 max k@(_, r) g counter =
