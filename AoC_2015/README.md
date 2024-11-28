@@ -1,7 +1,7 @@
-# 🦌🎅🏻⛄🎁 Advent of Code 2024 ☃️❄️🤶🎄
+# 🦌🎅🏻⛄🎁 Advent of Code 2015 ☃️❄️🤶🎄
 | Day | Stars | Languages    |
 | --: | :--:  | :----------  |
-|   1 |   | Haskell      |
+|   1 | ⭐⭐  | Haskell      |
 |   2 |   | Haskell      |
 |   3 |   | Haskell      |
 |   4 |   | Haskell      |
