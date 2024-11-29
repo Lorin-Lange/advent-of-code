@@ -13,5 +13,6 @@
 - [ ] AoC '26 (yet to come)
 
 ## About *Advent of Code*
-A nice video about AoC on YouTube:
+Some nice videos about AoC on YouTube:
+- [Keynote: Advent of Code, Behind the Scenes - Eric Wastl @ CppNorth](https://www.youtube.com/watch?v=uZ8DcbhojOw),
 - [Eric Wastl – Advent of Code: Behind the Scenes](https://www.youtube.com/watch?v=_oNOTknRTSU).
