@@ -14,13 +14,12 @@ import Control.Arrow ( (***) )
 makeScore :: [(Int, Int)] -> Int -> Int
 makeScore scores n = fromMaybe 0 (lookup n scores) * n
 
-parse :: String -> (Int, Int)
-parse str = (read $ head lst, read $ lst !! 1)
-    where lst = words str
+parse :: String -> ([Int], [Int])
+parse = join (***) sort . unzip . map tuple . lines
+    where tuple = (\[n1, n2] -> (n1, n2)) . map read . words
 
 main :: IO()
-main = do lst <- map parse . lines <$> readFile "input.txt"
-          let (lst1, lst2) = join (***) sort (unzip lst)
+main = do (lst1, lst2) <- parse <$> readFile "input.txt"
 
           putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
 
