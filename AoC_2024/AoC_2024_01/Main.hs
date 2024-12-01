@@ -15,8 +15,8 @@ makeScore :: [(Int, Int)] -> Int -> Int
 makeScore scores n = fromMaybe 0 (lookup n scores) * n
 
 parse :: String -> ([Int], [Int])
-parse = join (***) sort . unzip . map tuple . lines
-    where tuple = (\[n1, n2] -> (n1, n2)) . map read . words
+parse = join (***) sort . unzip . map toTuple . lines
+    where toTuple = (\[n1, n2] -> (n1, n2)) . map read . words
 
 main :: IO()
 main = do (lst1, lst2) <- parse <$> readFile "input.txt"
