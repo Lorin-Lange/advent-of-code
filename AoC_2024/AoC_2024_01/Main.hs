@@ -25,5 +25,5 @@ main = do
 
     putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
 
-    let scores = map (\lst -> (head lst, length lst)) $ group lst2
-    putStrLn $ "Part 2: " ++ show (sum $ map (makeScore scores) lst1)
+    let freq = map (\lst -> (head lst, length lst)) $ group lst2
+    putStrLn $ "Part 2: " ++ show (sum $ map (makeScore freq) lst1)
