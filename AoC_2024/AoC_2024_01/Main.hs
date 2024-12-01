@@ -8,6 +8,7 @@ module Main where
 
 import Data.List ( sort, group )
 import Data.Maybe ( fromMaybe )
+import Data.Composition ( (.:) )
 import Control.Monad  ( join )
 import Control.Arrow ( (***) )
 
@@ -21,7 +22,7 @@ parse = join (***) sort . unzip . map toTuple . lines
 main :: IO()
 main = do (lst1, lst2) <- parse <$> readFile "input.txt"
 
-          putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
+          putStrLn $ "Part 1: " ++ show (sum $ zipWith (abs .: (-)) lst1 lst2)
 
           let freq = map (\l -> (head l, length l)) $ group lst2
           putStrLn $ "Part 2: " ++ show (sum $ map (makeScore freq) lst1)
