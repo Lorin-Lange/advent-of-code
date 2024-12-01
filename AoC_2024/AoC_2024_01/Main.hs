@@ -8,6 +8,8 @@ module Main where
 
 import Data.List ( sort, group )
 import Data.Maybe ( fromMaybe )
+import Control.Monad  ( join )
+import Control.Arrow ( (***) )
 
 makeScore :: [(Int, Int)] -> Int -> Int
 makeScore scores n = fromMaybe 0 (lookup n scores) * n
@@ -19,8 +21,7 @@ parse str = (read $ head lst, read $ lst !! 1)
 main :: IO()
 main = do
     lst <- map parse . lines <$> readFile "input.txt"
-    let lst1 = sort $ map fst lst
-    let lst2 = sort $ map snd lst
+    let (lst1, lst2) = join (***) sort (unzip lst)
 
     putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
 
