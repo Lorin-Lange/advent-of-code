@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--           Day 1: Historian Hysteria            --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 11
+Part 2: 31
+
+input.txt:
+Part 1: 2430334
+Part 2: 28786472
