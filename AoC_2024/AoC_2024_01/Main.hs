@@ -19,11 +19,10 @@ parse str = (read $ head lst, read $ lst !! 1)
     where lst = words str
 
 main :: IO()
-main = do
-    lst <- map parse . lines <$> readFile "input.txt"
-    let (lst1, lst2) = join (***) sort (unzip lst)
+main = do lst <- map parse . lines <$> readFile "input.txt"
+          let (lst1, lst2) = join (***) sort (unzip lst)
 
-    putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
+          putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
 
-    let freq = map (\l -> (head l, length l)) $ group lst2
-    putStrLn $ "Part 2: " ++ show (sum $ map (makeScore freq) lst1)
+          let freq = map (\l -> (head l, length l)) $ group lst2
+          putStrLn $ "Part 2: " ++ show (sum $ map (makeScore freq) lst1)
