@@ -8,11 +8,10 @@ module Main where
 
 import Data.List.Split ( endBy )
 import Data.List ( sort, group )
-import Data.Maybe ( fromMaybe ) 
+import Data.Maybe ( fromMaybe )
 
 makeScore :: [(Int, Int)] -> Int -> Int
-makeScore scores n = let score = fromMaybe 0 $ lookup n scores
-                     in score * n
+makeScore scores n = fromMaybe 0 (lookup n scores) * n
 
 parse :: String -> (Int, Int)
 parse str = let lst = endBy "   " str
