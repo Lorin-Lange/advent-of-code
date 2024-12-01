@@ -6,7 +6,6 @@
 
 module Main where
 
-import Data.List.Split ( endBy )
 import Data.List ( sort, group )
 import Data.Maybe ( fromMaybe )
 
@@ -14,14 +13,14 @@ makeScore :: [(Int, Int)] -> Int -> Int
 makeScore scores n = fromMaybe 0 (lookup n scores) * n
 
 parse :: String -> (Int, Int)
-parse str = let lst = endBy "   " str
-            in (read $ head lst, read $ lst !! 1)
+parse str = (read $ head lst, read $ lst !! 1)
+    where lst = words str
 
 main :: IO()
 main = do
-    input <- map parse . lines <$> readFile "test_input.txt"
-    let lst1 = sort $ map fst input
-    let lst2 = sort $ map snd input
+    lst <- map parse . lines <$> readFile "input.txt"
+    let lst1 = sort $ map fst lst
+    let lst2 = sort $ map snd lst
 
     putStrLn $ "Part 1: " ++ show (sum $ zipWith (\a b -> abs $ a - b) lst1 lst2)
 
