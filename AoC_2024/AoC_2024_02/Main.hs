@@ -12,7 +12,7 @@ isSafe :: [Int] -> Bool
 isSafe lst = monotonic && inRange
     where ds = zipWith (-) (init lst) (tail lst)
           monotonic = all (> 0) ds || all (< 0) ds
-          inRange = all (\x -> abs x <= 3) ds
+          inRange = all ((3 >=) . abs) ds
 
 isTolerated :: [Int] -> Bool
 isTolerated lst = any isSafe lsts
