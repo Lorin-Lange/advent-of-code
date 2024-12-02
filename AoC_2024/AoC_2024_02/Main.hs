@@ -16,8 +16,7 @@ isSafe lst = monotonic && inRange
 
 isTolerated :: [Int] -> Bool
 isTolerated lst = any isSafe lsts
-    where lsts = zipWith (++) (inits lst) (map ditch1 $ tails lst)
-          ditch1 [] = []; ditch1 (_:xs) = xs
+    where lsts = zipWith (++) (inits lst) (map (drop 1) $ tails lst)
 
 main :: IO()
 main = do input <- map words . lines <$> readFile "input.txt"
