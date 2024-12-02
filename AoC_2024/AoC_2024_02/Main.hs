@@ -6,19 +6,23 @@
 
 module Main where
 
+import Data.List ( inits, tails )
+
 isSafe :: [Int] -> Bool
 isSafe lst = monotonic && inRange
     where ds = zipWith (-) (init lst) (tail lst)
           monotonic = all (> 0) ds || all (< 0) ds
           inRange = all (\x -> abs x <= 3) ds
 
-problemDampener :: [Int] -> [Int]
-problemDampener lst = lst
+isSafeWithToleration :: [Int] -> Bool
+isSafeWithToleration lst = any isSafe possibleRemovals
+    where possibleRemovals = zipWith (++) (inits lst) (map tail' $ tails lst)
+          tail' [] = []; tail' (_:xs) = xs
 
 main :: IO()
 main = do
-    input <- map words . lines <$> readFile "test_input.txt"
+    input <- map words . lines <$> readFile "input.txt"
     let lst = map (map read) input
 
     putStrLn $ "Part 1: " ++ show (length $ filter isSafe lst)
-    putStrLn $ "Part 2: " ++ show (length $ filter isSafe $ map problemDampener lst)
+    putStrLn $ "Part 2: " ++ show (length $ filter isSafeWithToleration lst)
