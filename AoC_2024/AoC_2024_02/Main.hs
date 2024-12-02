@@ -21,4 +21,4 @@ main = do
     let lst = map (map read) input
 
     putStrLn $ "Part 1: " ++ show (length $ filter isSafe lst)
-    --putStrLn $ "Part 2: " ++ show (length $ filter isSafe $ map problemDampener lst)
+    putStrLn $ "Part 2: " ++ show (length $ filter isSafe $ map problemDampener lst)
