@@ -8,7 +8,7 @@
 - [ ] AoC '21
 - [ ] AoC '22 in Haskell (and partly in C++) (approx. 2/3 completed)
 - [ ] AoC '23 in Haskell (approx. 2/3 completed)
-- [ ] AoC '24 in Haskell (2 ⭐ out of 50 ⭐)
+- [ ] AoC '24 in Haskell (4 ⭐ out of 50 ⭐)
 - [ ] AoC '25 (yet to come)
 - [ ] AoC '26 (yet to come)
 
