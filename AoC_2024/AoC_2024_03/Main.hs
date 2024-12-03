@@ -20,7 +20,7 @@ data Mul = Mul Integer | Do | Dont
     deriving Show
  
 parseInput :: Bool -> Parser [Mul]
-parseInput b = many $ try $ skipManyTill anySingle $ try cmd
+parseInput b = many . try . skipManyTill anySingle $ try cmd
     where cmd    = if b then mulCmd <|> do' <|> dont else mulCmd
           mulCmd = between (string "mul(") (char ')') mul
           mul  = Mul .: (*) <$> L.decimal <* char ',' <*> L.decimal

@@ -4,3 +4,12 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
+test_input_1.txt:
+Part 1: 161
+
+test_input_2.txt:
+Part 2: 48
+
+input.txt:
+Part 1: 173785482
+Part 2: 83158140
