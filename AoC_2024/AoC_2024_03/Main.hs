@@ -19,14 +19,9 @@ type Parser = Parsec Void String
 data Mul = Mul Integer | Do | Dont
     deriving Show
  
-parseInput1 :: Parser [Mul]
-parseInput1 = many $ try $ skipManyTill anySingle $ try mulCmd
-    where mulCmd = between (string "mul(") (char ')') mul
-          mul = Mul .: (*) <$> L.decimal <* char ',' <*> L.decimal
-
-parseInput2 :: Parser [Mul]
-parseInput2 = many $ try $ skipManyTill anySingle $ try cmd
-    where cmd    = mulCmd <|> do' <|> dont
+parseInput :: Bool -> Parser [Mul]
+parseInput b = many $ try $ skipManyTill anySingle $ try cmd
+    where cmd    = if b then mulCmd <|> do' <|> dont else mulCmd
           mulCmd = between (string "mul(") (char ')') mul
           mul  = Mul .: (*) <$> L.decimal <* char ',' <*> L.decimal
           do'  = string "do()" >> return Do
@@ -42,8 +37,8 @@ filterMul lst = filterMulH lst True
 main :: IO()
 main = do input <- readFile "input.txt"
 
-          let part1 = fromRight [] $ parse parseInput1 "" input
+          let part1 = fromRight [] $ parse (parseInput False) "" input
           putStrLn $ "Part 1: " ++ show (sum $ map (\(Mul v) -> v) part1)
 
-          let part2 = fromRight [] $ parse parseInput2 "" input
+          let part2 = fromRight [] $ parse (parseInput True) "" input
           putStrLn $ "Part 2: " ++ show (sum $ map (\(Mul v) -> v) $ filterMul part2)
