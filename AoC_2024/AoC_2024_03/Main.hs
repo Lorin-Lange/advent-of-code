@@ -18,14 +18,14 @@ type Parser = Parsec Void String
 
 data Mul = Mul Integer | Do | Dont
     deriving Show
- 
+
 parseInput :: Bool -> Parser [Mul]
 parseInput b = many . try . skipManyTill anySingle $ try cmd
-    where cmd    = if b then mulCmd <|> do' <|> dont else mulCmd
+    where cmd    = if b then mulCmd <|> do_ <|> don't else mulCmd
           mulCmd = between (string "mul(") (char ')') mul
-          mul  = Mul .: (*) <$> L.decimal <* char ',' <*> L.decimal
-          do'  = string "do()" >> return Do
-          dont = string "don't()" >> return Dont
+          mul    = Mul .: (*) <$> L.decimal <* char ',' <*> L.decimal
+          do_    = string "do()" >> return Do
+          don't  = string "don't()" >> return Dont
 
 filterMul :: [Mul] -> [Mul]
 filterMul lst = filterMulH lst True
