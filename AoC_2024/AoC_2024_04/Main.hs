@@ -10,12 +10,9 @@ import qualified Data.Map as Map
 
 type Pos = (Int, Int)
 
-xmas :: Map.Map Pos (Char, Pos) -> Map.Map Pos Int
-xmas m = fmap (isXMAS m) m
-
 isXMAS :: Map.Map Pos (Char, Pos) -> (Char, Pos) -> Int
 isXMAS m (ch, (r,c)) | ch /= 'X' = 0
-                     | otherwise = length $ filter id [n, e, s, w, ne, se, sw, nw]
+                     | otherwise = length $ filter id [n,e,s,w,ne,se,sw,nw]
     where n  = isMAS (r-1,c)   (r-2,c)   (r-3,c)
           e  = isMAS (r,  c+1) (r,  c+2) (r,  c+3)
           s  = isMAS (r+1,c)   (r+2,c)   (r+3,c)
@@ -25,9 +22,6 @@ isXMAS m (ch, (r,c)) | ch /= 'X' = 0
           sw = isMAS (r+1,c-1) (r+2,c-2) (r+3,c-3)
           nw = isMAS (r-1,c-1) (r-2,c-2) (r-3,c-3)
           isMAS p1 p2 p3 = isChar m 'M' p1 && isChar m 'A' p2 && isChar m 'S' p3
-
-mas :: Map.Map Pos (Char, Pos) -> Map.Map Pos Int
-mas m = fmap (isMAS m) m
 
 isMAS :: Map.Map Pos (Char, Pos) -> (Char, Pos) -> Int
 isMAS m (ch, (r,c)) | ch /= 'A' = 0
@@ -44,12 +38,12 @@ isChar m c p = case Map.lookup p m of
     Nothing        -> False
     (Just (ch, _)) -> ch == c
 
-main :: IO()
-main = do
-    input <- lines <$> readFile "input.txt"
-    let lst = concat $ zipWith (\r l -> zipWith (\c ch -> ((r, c), (ch, (r, c)))) [0..] l) [0..] input
-    let m = Map.fromList lst
-    
-    putStrLn $ "Part 1: " ++ show (sum $ Map.elems $ xmas m)
+makeMap :: [String] -> Map.Map Pos (Char, Pos)
+makeMap = Map.fromList 
+        . concat 
+        . zipWith (\r l -> zipWith (\c ch -> ((r, c), (ch, (r, c)))) [0..] l) [0..]
 
-    putStrLn $ "Part 2: " ++ show (sum $ Map.elems $ mas m)
+main :: IO()
+main = do m <- makeMap .lines <$> readFile "test_input.txt"
+          putStrLn $ "Part 1: " ++ show (sum $ Map.elems $ isXMAS m <$> m)
+          putStrLn $ "Part 2: " ++ show (sum $ Map.elems $ isMAS m <$> m)

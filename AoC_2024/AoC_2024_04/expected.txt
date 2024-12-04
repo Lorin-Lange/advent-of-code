@@ -4,3 +4,10 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
+test_input.txt:
+Part 1: 18
+Part 2: 9
+
+input.txt:
+Part 1: 2524
+Part 2: 1873
