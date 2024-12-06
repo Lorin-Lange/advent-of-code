@@ -25,11 +25,9 @@ isXMAS m (ch, (r,c)) | ch /= 'X' = 0
 
 isMAS :: Map.Map Pos (Char, Pos) -> (Char, Pos) -> Int
 isMAS m (ch, (r,c)) | ch /= 'A' = 0
-                    | otherwise = length $ filter id [c1,c2,c3,c4]
-    where c1 = isX 'S' 'S' 'M' 'M'
-          c2 = isX 'M' 'S' 'S' 'M'
-          c3 = isX 'S' 'M' 'M' 'S'
-          c4 = isX 'M' 'M' 'S' 'S'
+                    | otherwise = length $ filter id [c1, c2, c3, c4]
+    where c1 = isX 'S' 'S' 'M' 'M'; c2 = isX 'M' 'S' 'S' 'M'
+          c3 = isX 'S' 'M' 'M' 'S'; c4 = isX 'M' 'M' 'S' 'S'
           isX l1 l2 l3 l4 = isChar m l1 (r-1,c+1) && isChar m l2 (r+1,c+1) && 
                             isChar m l3 (r+1,c-1) && isChar m l4 (r-1,c-1)
 
@@ -39,11 +37,10 @@ isChar m c p = case Map.lookup p m of
     (Just (ch, _)) -> ch == c
 
 makeMap :: [String] -> Map.Map Pos (Char, Pos)
-makeMap = Map.fromList 
-        . concat 
-        . zipWith (\r l -> zipWith (\c ch -> ((r, c), (ch, (r, c)))) [0..] l) [0..]
+makeMap = Map.fromList . concat . zipWith 
+    (\r l -> zipWith (\c ch -> ((r, c), (ch, (r, c)))) [0..] l) [0..]
 
 main :: IO()
 main = do m <- makeMap .lines <$> readFile "test_input.txt"
-          putStrLn $ "Part 1: " ++ show (sum $ Map.elems $ isXMAS m <$> m)
-          putStrLn $ "Part 2: " ++ show (sum $ Map.elems $ isMAS m <$> m)
+          putStrLn $ "Part 1: " ++ show (sum . Map.elems $ isXMAS m <$> m)
+          putStrLn $ "Part 2: " ++ show (sum . Map.elems $ isMAS m <$> m)
