@@ -14,7 +14,7 @@ parseInput :: String -> ([(Int, Int)], [[Int]])
 parseInput lst' = (rules, updates) where
     lst     = splitOn [""] $ lines lst'
     rules   = map ((\[v1, v2] -> (read v1, read v2)) . splitOn "|") $ head lst
-    updates = map (map read .  splitOn ",") $ lst !! 1
+    updates = map (map read . splitOn ",") $ lst !! 1
 
 isCorrect :: [(Int, Int)] -> [Int] -> Bool
 isCorrect updates rules = not $ any violatesRule updates
