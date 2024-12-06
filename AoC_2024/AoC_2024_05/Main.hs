@@ -10,9 +10,9 @@ import Data.List.Split ( splitOn )
 import Data.List ( elemIndex, partition, sortBy )
 import Data.Maybe ( fromJust )
 
-parseInput :: [String] -> ([(Int, Int)], [[Int]])
+parseInput :: String -> ([(Int, Int)], [[Int]])
 parseInput lst' = (rules, updates) where
-    lst     = splitOn [""] lst'
+    lst     = splitOn [""] $ lines lst'
     rules   = map ((\[v1, v2] -> (read v1, read v2)) . splitOn "|") $ head lst
     updates = map (map read .  splitOn ",") $ lst !! 1
 
@@ -25,10 +25,10 @@ getMiddle :: [a] -> a
 getMiddle lst = lst !! (length lst `div` 2)
 
 order :: [(Int, Int)] -> [Int] -> [Int]
-order orders = sortBy (\x y -> if (x, y) `elem` orders then LT else GT)
+order orders = sortBy $ \x y -> if (x, y) `elem` orders then LT else GT
 
 main :: IO()
-main = do (rules, updates) <- parseInput . lines <$> readFile "input.txt"
+main = do (rules, updates) <- parseInput <$> readFile "input.txt"
           let (correct, incorrect) = partition (isCorrect rules) updates
 
           putStrLn $ "Part 1: " ++ show (sum $ map getMiddle correct)
