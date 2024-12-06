@@ -19,8 +19,7 @@ isTolerated lst = any isSafe lsts
     where lsts = zipWith (++) (inits lst) (map (drop 1) $ tails lst)
 
 main :: IO()
-main = do input <- map words . lines <$> readFile "input.txt"
-          let lst = map (map read) input
+main = do lst <- map (map read . words) . lines <$> readFile "input.txt"
 
           putStrLn $ "Part 1: " ++ show (length $ filter isSafe lst)
           putStrLn $ "Part 2: " ++ show (length $ filter isTolerated lst)
