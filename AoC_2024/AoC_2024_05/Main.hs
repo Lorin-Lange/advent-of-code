@@ -28,7 +28,7 @@ order :: [(Int, Int)] -> [Int] -> [Int]
 order orders = sortBy (\x y -> if (x, y) `elem` orders then LT else GT)
 
 main :: IO()
-main = do (rules, updates) <- parseInput . lines <$> readFile "test_input.txt"
+main = do (rules, updates) <- parseInput . lines <$> readFile "input.txt"
           let (correct, incorrect) = partition (isCorrect rules) updates
 
           putStrLn $ "Part 1: " ++ show (sum $ map getMiddle correct)
