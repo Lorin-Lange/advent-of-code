@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--               Day 5: Print Queue               --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 143
+Part 2: 123
+
+input.txt:
+Part 1: 5087
+Part 2: 4971
