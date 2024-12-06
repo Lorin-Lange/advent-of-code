@@ -32,5 +32,4 @@ main = do (rules, updates) <- parseInput . lines <$> readFile "input.txt"
           let (correct, incorrect) = partition (isCorrect rules) updates
 
           putStrLn $ "Part 1: " ++ show (sum $ map getMiddle correct)
-
           putStrLn $ "Part 2: " ++ show (sum $ map (getMiddle . order rules) incorrect)
