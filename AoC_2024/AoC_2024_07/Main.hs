@@ -14,8 +14,8 @@ parse str = (read value, nums)
           nums = map read $ splitOn " " $ tail lst
 
 isTestValue :: (Integer -> Integer -> [Integer]) -> (Integer, [Integer]) -> Bool
-isTestValue f (expected, nums) = expected `elem` makeNums [1] nums
-    where makeNums = foldl $ \is x -> concatMap (`f` x) is
+isTestValue operators (expected, nums) = expected `elem` makeNums [1] nums
+    where makeNums = foldl $ \is x -> concatMap (`operators` x) is
 
 main :: IO()
 main = do input <- map parse . lines <$> readFile "test_input.txt"
