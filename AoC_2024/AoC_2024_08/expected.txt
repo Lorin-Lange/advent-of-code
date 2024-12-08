@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--          Day 8: Resonant Collinearity          --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 14
+Part 2: 34
+
+input.txt:
+Part 1: 259
+Part 2: 
