@@ -32,7 +32,8 @@ filterMul lst = filterMulH lst True
     where filterMulH []        _ = []
           filterMulH (Do:xs)   _ = filterMulH xs True
           filterMulH (Dont:xs) _ = filterMulH xs False
-          filterMulH (x:xs)    b = if b then x : filterMulH xs b else filterMulH xs b
+          filterMulH (x:xs)    b | b         = x : filterMulH xs b 
+                                 | otherwise = filterMulH xs b
 
 main :: IO()
 main = do input <- readFile "input.txt"
