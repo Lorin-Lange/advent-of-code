@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--             Day 9: Disk Fragmenter             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 1928
+Part 2: 2858
+
+input.txt:
+Part 1: 6225730762521
+Part 2: 
