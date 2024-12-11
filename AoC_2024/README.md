@@ -8,10 +8,10 @@
 |   5 | ⭐⭐  | Haskell      |
 |   6 | ⭐  | Haskell      |
 |   7 | ⭐⭐  | Haskell      |
-|   8 |   | Haskell      |
-|   9 |   | Haskell      |
+|   8 | ⭐  | Haskell      |
+|   9 | ⭐  | Haskell      |
 |  10 |   | Haskell      |
-|  11 |   | Haskell      |
+|  11 | ⭐⭐  | Haskell      |
 |  12 |   | Haskell      |
 |  13 |   | Haskell      |
 |  14 |   | Haskell      |
