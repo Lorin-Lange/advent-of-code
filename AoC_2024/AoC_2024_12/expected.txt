@@ -1,0 +1,14 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--             Day 12: Garden Groups              --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+mini_input.txt:
+Part 1: 772
+
+test_input.txt:
+Part 1: 1930
+
+input.txt:
+Part 1: 
