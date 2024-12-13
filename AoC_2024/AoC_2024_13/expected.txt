@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--            Day 13: Claw Contraption            --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 480
+Part 2: 875318608908
+
+input.txt:
+Part 1: 29438
+Part 2: 104958599303720
