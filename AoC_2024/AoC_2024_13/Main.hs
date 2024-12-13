@@ -18,8 +18,8 @@ data Machine = Machine
     , px, py :: Int }
 
 parse :: [String] -> [Machine]
-parse inp = map parseH $ chunksOf 4 inp 
-    where parseH str = Machine { 
+parse = map parse' . chunksOf 4
+    where parse' str = Machine { 
         ax = read $ drop 12 a1, ay = read $ drop 3 a2,
         bx = read $ drop 12 b1, by = read $ drop 3 b2,
         px = read $ drop  9 p1, py = read $ drop 3 p2 }
