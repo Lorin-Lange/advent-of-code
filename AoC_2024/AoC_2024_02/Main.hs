@@ -10,16 +10,19 @@ import Data.List ( inits, tails )
 
 isSafe :: [Int] -> Bool
 isSafe lst = monotonic && inRange
-    where ds = zipWith (-) (init lst) (tail lst)
-          monotonic = all (> 0) ds || all (< 0) ds
-          inRange = all ((3 >=) . abs) ds
+    where deltas    = zipWith (-) (init lst) (tail lst)
+          monotonic = all (> 0) deltas || all (< 0) deltas
+          inRange   = all ((3 >=) . abs) deltas
 
 isTolerated :: [Int] -> Bool
 isTolerated lst = any isSafe lsts
     where lsts = zipWith (++) (inits lst) (map (drop 1) $ tails lst)
 
+solve :: ([Int] -> Bool) -> [[Int]] -> Int
+solve p = length . filter p
+
 main :: IO()
 main = do lst <- map (map read . words) . lines <$> readFile "input.txt"
 
-          putStrLn $ "Part 1: " ++ show (length $ filter isSafe lst)
-          putStrLn $ "Part 2: " ++ show (length $ filter isTolerated lst)
+          putStrLn $ "Part 1: " ++ show (solve isSafe lst)
+          putStrLn $ "Part 2: " ++ show (solve isTolerated lst)
