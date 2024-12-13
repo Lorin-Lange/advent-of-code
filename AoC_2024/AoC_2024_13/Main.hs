@@ -36,7 +36,7 @@ solve = sum . map (\(x, y) -> 3 * x + y) . mapMaybe solve'
 
 unitConversion :: [Machine] -> [Machine]
 unitConversion = map $ \m -> m { px = m.px + offset, py = m.py + offset }
-    where offset = 10000000000000
+    where offset = 10_000_000_000_000
 
 main :: IO()
 main = do lst <- parse . lines <$> readFile "input.txt"
