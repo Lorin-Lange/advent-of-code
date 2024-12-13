@@ -23,11 +23,9 @@ parse = map parse' . chunksOf 4
         ax = p 12 a1, ay = p 3 a2, 
         bx = p 12 b1, by = p 3 b2, 
         px = p  9 p1, py = p 3 p2 }
-            where p i s    = read $ drop i s
+            where [a1, a2, b1, b2, p1, p2] = concatMap split [0..2]
                   split n  = splitOn "," $ str !! n
-                  [a1, a2] = split 0
-                  [b1, b2] = split 1
-                  [p1, p2] = split 2
+                  p i s    = read $ drop i s
 
 solve :: [Machine] -> Int
 solve = sum . map (\(x, y) -> 3 * x + y) . mapMaybe solve'
