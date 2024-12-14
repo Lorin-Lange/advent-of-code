@@ -43,11 +43,10 @@ safetyFactor rbts = q1 * q2 * q3 * q4
 
 printRobots :: [Robot] -> String
 printRobots lst = concatMap (\y -> map (\x -> lu (x, y)) [0..101] ++ "\n") [0..103]
-    where m = makeMap lst
-          lu k = fromMaybe ' ' $ Map.lookup k m
+    where lu k = fromMaybe ' ' $ Map.lookup k (makeMap lst)
 
 makeMap :: [Robot] -> Map.Map (Int, Int) Char
-makeMap lst = Map.fromList $ map (\r -> ((r.px, r.py), 'X')) lst
+makeMap = Map.fromList . map (\r -> ((r.px, r.py), 'X'))
 
 computeRobots :: [Robot] -> [((Int, [Robot]), Int)]
 computeRobots rbts = sortBy (comparing snd) robots
