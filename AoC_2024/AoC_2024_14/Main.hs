@@ -35,14 +35,14 @@ move t = map move' where
               in r { px, py }
 
 safetyFactor :: [Robot] -> Int
-safetyFactor rbts = q1 * q2 * q3 * q4
+safetyFactor rbts = product [q1, q2, q3, q4]
     where q1 = sum [1 | r <- rbts, r.px < 50, r.py < 51]
           q2 = sum [1 | r <- rbts, r.px > 50, r.py < 51]
           q3 = sum [1 | r <- rbts, r.px < 50, r.py > 51]
           q4 = sum [1 | r <- rbts, r.px > 50, r.py > 51]
 
 printRobots :: [Robot] -> String
-printRobots lst = concatMap (\y -> map (\x -> lu (x, y)) [0..101] ++ "\n") [0..103]
+printRobots lst = concatMap (\y -> map (\x -> lu (x, y)) [0..100] ++ "\n") [0..102]
     where lu k = fromMaybe ' ' $ Map.lookup k (makeMap lst)
 
 makeMap :: [Robot] -> Map.Map (Int, Int) Char
@@ -50,7 +50,7 @@ makeMap = Map.fromList . map (\r -> ((r.px, r.py), 'X'))
 
 computeRobots :: [Robot] -> [((Int, [Robot]), Int)]
 computeRobots rbts = sortBy (comparing snd) robots
-    where robots = map (\n -> ((n, move n rbts), safetyFactor $ move n rbts)) [0..101 * 103]
+    where robots = map (\n -> ((n, move n rbts), safetyFactor $ move n rbts)) [1..101 * 103]
 
 main :: IO()
 main = do robots <- parse <$> readFile "input.txt"
@@ -58,6 +58,5 @@ main = do robots <- parse <$> readFile "input.txt"
           putStrLn $ "Part 1: " ++ show (safetyFactor $ move 100 robots)
 
           let robots' = computeRobots robots
-          let robot = snd $ fst $ head robots'
-          writeFile "tree.txt" $ printRobots robot
-          putStrLn $ "Part 2: " ++ show (fst $ fst $ head robots')
+          writeFile "tree.txt" $ printRobots (snd . fst $ head robots')
+          putStrLn $ "Part 2: " ++ show (fst . fst $ head robots')
