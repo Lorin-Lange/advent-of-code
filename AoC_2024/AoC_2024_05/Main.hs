@@ -11,10 +11,10 @@ import Data.List ( elemIndex, partition, sortBy )
 import Data.Maybe ( fromJust )
 
 parseInput :: String -> ([(Int, Int)], [[Int]])
-parseInput lst' = (rules, updates) where
-    lst     = splitOn [""] $ lines lst'
-    rules   = map ((\[v1, v2] -> (read v1, read v2)) . splitOn "|") $ head lst
-    updates = map (map read . splitOn ",") $ lst !! 1
+parseInput l = (rules, updates) 
+    where lst     = splitOn [""] $ lines l
+          updates = map (map read . splitOn ",") $ lst !! 1
+          rules   = map ((\[v1, v2] -> (read v1, read v2)) . splitOn "|") $ head lst
 
 isCorrect :: [(Int, Int)] -> [Int] -> Bool
 isCorrect updates rules = not $ any violatesRule updates
