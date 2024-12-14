@@ -22,17 +22,16 @@ data Robot = Robot
     deriving Show
 
 parse :: String -> [Robot]
-parse = map parse' . lines where
-    parse' s = let [p, v]   = map (drop 2) $ splitOn " " s
-                   [px, py] = map read $ splitOn "," p
-                   [vx, vy] = map read $ splitOn "," v
-               in Robot { px, py, vx, vy }
+parse = map parse' . lines
+    where parse' s = Robot { px, py, vx, vy }
+            where [px, py, vx, vy] = map read . concatMap 
+                    (splitOn "," . drop 2) $ splitOn " " s
 
 move :: Int -> [Robot] -> [Robot]
-move t = map move' where
-    move' r = let px = (r.px + t * r.vx) `mod` 101
+move t = map move'
+    where move' r = r { px, py }
+            where px = (r.px + t * r.vx) `mod` 101
                   py = (r.py + t * r.vy) `mod` 103
-              in r { px, py }
 
 safetyFactor :: [Robot] -> Int
 safetyFactor robots = product [q1, q2, q3, q4]
@@ -51,7 +50,7 @@ variance lst = sum (map (\x -> (x - m)^2) l) / (n - 1)
           m = sum l / n
 
 getMinVariance :: [Robot] -> (Robot -> Int) -> Int
-getMinVariance robots s = fst . head . sortOn snd $ 
+getMinVariance robots s = fst . head . sortOn snd $
     map (\t -> (t, variance . map s $ move t robots)) [1..103]
 
 getFewestNumber :: [Robot] -> Int
