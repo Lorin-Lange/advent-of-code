@@ -33,7 +33,7 @@ filterMul lst = filterMulH lst True
           filterMulH (Do:xs)   _ = filterMulH xs True
           filterMulH (Dont:xs) _ = filterMulH xs False
           filterMulH (x:xs)    b | b         = x : filterMulH xs b 
-                                 | otherwise = filterMulH xs b
+                                 | otherwise =     filterMulH xs b
 
 solve :: ([Mul] -> [Mul]) -> Bool -> String -> Integer
 solve f b = sum . map (\(Mul v) -> v) . f . fromRight [] . parse (parseInput b) ""
