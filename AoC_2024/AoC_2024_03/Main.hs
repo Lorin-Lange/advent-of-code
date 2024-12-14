@@ -7,10 +7,10 @@
 module Main where
 
 import Text.Megaparsec ( Parsec, parse, between, 
-    skipManyTill, many, MonadParsec (try), anySingle, (<|>))
-import Text.Megaparsec.Char (char, string )
+    skipManyTill, many, MonadParsec (try), anySingle, (<|>) )
+import Text.Megaparsec.Char ( char, string )
 import Data.Void ( Void )
-import Data.Either (fromRight)
+import Data.Either ( fromRight )
 import qualified Text.Megaparsec.Char.Lexer as L
 import Data.Composition ( (.:) )
 
@@ -35,11 +35,11 @@ filterMul lst = filterMulH lst True
           filterMulH (x:xs)    b | b         = x : filterMulH xs b 
                                  | otherwise = filterMulH xs b
 
+solve :: ([Mul] -> [Mul]) -> Bool -> String -> Integer
+solve f b = sum . map (\(Mul v) -> v) . f . fromRight [] . parse (parseInput b) ""
+
 main :: IO()
 main = do input <- readFile "input.txt"
 
-          let part1 = fromRight [] $ parse (parseInput False) "" input
-          putStrLn $ "Part 1: " ++ show (sum $ map (\(Mul v) -> v) part1)
-
-          let part2 = fromRight [] $ parse (parseInput True) "" input
-          putStrLn $ "Part 2: " ++ show (sum $ map (\(Mul v) -> v) $ filterMul part2)
+          putStrLn $ "Part 1: " ++ show (solve id False input)
+          putStrLn $ "Part 2: " ++ show (solve filterMul True input)
