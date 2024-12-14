@@ -6,4 +6,4 @@
 
 input.txt:
 Part 1: 218433348
-Part 2:
+Part 2: 6512
