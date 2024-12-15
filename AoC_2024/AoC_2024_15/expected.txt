@@ -1,0 +1,17 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--             Day 15: Warehouse Woes             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+mini_input.txt:
+Part 1: 
+Part 2: 
+
+test_input.txt:
+Part 1: 
+Part 2: 
+
+input.txt:
+Part 1: 
+Part 2: 
