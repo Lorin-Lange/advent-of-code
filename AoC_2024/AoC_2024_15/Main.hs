@@ -37,11 +37,8 @@ next (x, y) L = (x-1, y)
 next (x, y) R = (x+1, y)
 
 move :: (Pos, Grid) -> [Dir] -> (Pos, Grid)
-move = foldl move'
-
-move' :: (Pos, Grid) -> Dir -> (Pos, Grid)
-move' t@(p, g) d | not $ isPossible t d = t
-                 | otherwise            = (next p d, shift t d Robot)
+move = foldl $ \cases t@(p, g) d -> if isPossible t d 
+                        then (next p d, shift t d Robot) else t
 
 shift :: (Pos, Grid) -> Dir -> Item -> Grid
 shift (p, g) d i = case Map.lookup p g of
@@ -57,15 +54,16 @@ isPossible (p, g) d = case Map.lookup p g of
     (Just _)    -> isPossible (next p d, g) d
     Nothing     -> False
 
-getPos :: Grid -> Pos
-getPos g = head [p | (p, Robot) <- Map.toList g]
+getStart :: Grid -> Pos
+getStart g = head [p | (p, Robot) <- Map.toList g]
 
 sumOfBoxes :: Grid -> Int
 sumOfBoxes g = sum [100 * y + x | ((x,y), Box) <- Map.toList g]
 
 main :: IO()
 main = do t@(grid, dirs) <- parse . lines <$> readFile "input.txt"
-          let s = getPos grid
-          print s
-          let (_, g) = move (s, grid) dirs
-          print $ sumOfBoxes g
+
+          let res1 = sumOfBoxes . snd $ move (getStart grid, grid) dirs
+          putStrLn $ "Part 1: " ++ show res1
+          
+          putStrLn $ "Part 2: " ++ show ()
