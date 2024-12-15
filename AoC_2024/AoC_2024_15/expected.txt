@@ -5,13 +5,13 @@
 ----------------------------------------------------
 
 mini_input.txt:
-Part 1: 
+Part 1: 2028
 Part 2: 
 
 test_input.txt:
-Part 1: 
+Part 1: 10092
 Part 2: 
 
 input.txt:
-Part 1: 
+Part 1: 1490942
 Part 2: 
