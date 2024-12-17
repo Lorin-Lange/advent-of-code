@@ -25,12 +25,10 @@ parse lst = (R { a, b, c }, instr)
           instr = map read . splitOn "," . drop 9 $ lst !! 4
 
 run :: (Registers, [Int]) -> String
-run (rs, instr) = tail . init $ show out where (_, _, out) = runH (rs, 0, []) instr
-
-runH :: (Registers, Int, [Int]) -> [Int] -> (Registers, Int, [Int])
-runH t@(rs, ip, out) instr = if ip >= length instr then t
-    else runH (execute (instr !! ip) ip (instr !! (ip + 1)) rs out) instr
-
+run (rs, instr) = let (_, _, out) = runH (rs, 0, []) instr in tail . init $ show out 
+    where runH t@(rs, ip, out) instr = if ip >= length instr then t
+            else runH (execute (instr !! ip) ip (instr !! (ip + 1)) rs out) instr
+ 
 execute :: Int -> Int -> Int -> Registers -> [Int] -> (Registers, Int, [Int])
 execute 0 ip op rs out = (rs { a = rs.a `shiftR` comboOp op rs }, ip + 2, out)
 execute 1 ip op rs out = (rs { b = rs.b `xor` op }, ip + 2, out)
