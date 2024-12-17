@@ -7,6 +7,7 @@
 {-# LANGUAGE OverloadedRecordDot   #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE NamedFieldPuns        #-}
+{-# LANGUAGE LambdaCase            #-}
 
 module Main where
 
@@ -24,15 +25,12 @@ parse lst = (R { a, b, c }, instr)
           instr = map read . splitOn "," . drop 9 $ lst !! 4
 
 run :: (Registers, [Int]) -> String
-run (rs, instr) = show out where (_, _, out) = runH (rs, 0, []) instr
+run (rs, instr) = tail . init $ show out where (_, _, out) = runH (rs, 0, []) instr
 
 runH :: (Registers, Int, [Int]) -> [Int] -> (Registers, Int, [Int])
 runH t@(rs, ip, out) instr = if ip >= length instr then t
-                           else runH (execute instruction ip operand rs out) instr
-        where instruction = instr !! ip
-              operand = instr !! (ip + 1)
+    else runH (execute (instr !! ip) ip (instr !! (ip + 1)) rs out) instr
 
--- opcode ptr rs -> (rs, ptr)
 execute :: Int -> Int -> Int -> Registers -> [Int] -> (Registers, Int, [Int])
 execute 0 ip op rs out = (rs { a = rs.a `shiftR` comboOp op rs }, ip + 2, out)
 execute 1 ip op rs out = (rs { b = rs.b `xor` op }, ip + 2, out)
@@ -40,16 +38,13 @@ execute 2 ip op rs out = (rs { b = comboOp op rs .&. 7 }, ip + 2, out)
 execute 3 ip op rs out = (rs, if rs.a == 0 then ip + 2 else op, out)
 execute 4 ip op rs out = (rs { b = rs.b `xor` rs.c }, ip + 2, out)
 execute 5 ip op rs out = (rs, ip + 2, out ++ [comboOp op rs .&. 7])
-execute 6 ip op rs out = (rs { b = rs.a  `shiftR` comboOp op rs }, ip + 2, out)
+execute 6 ip op rs out = (rs { b = rs.a `shiftR` comboOp op rs }, ip + 2, out)
 execute 7 ip op rs out = (rs { c = rs.a `shiftR` comboOp op rs }, ip + 2, out)
 
 comboOp :: Int -> Registers -> Int
-comboOp 4 rs = rs.a
-comboOp 5 rs = rs.b
-comboOp 6 rs = rs.c
-comboOp o rs | 0 <= o && o <= 3 = o
+comboOp = \cases 4 rs -> rs.a; 5 rs -> rs.b; 6 rs -> rs.c; o _ -> o
 
 main :: IO()
 main = do t@(rs, cmds) <- parse . lines <$> readFile "input.txt"
-          putStrLn $ "Part 1: " ++ (tail . init $ run t)
+          putStrLn $ "Part 1: " ++ run t
           putStrLn $ "Part 2: " ++ show ("TODO")
