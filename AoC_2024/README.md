@@ -15,14 +15,14 @@
 |  12 | ❓❓  | Haskell     |
 |  13 | ⭐⭐  | Haskell     |
 |  14 | ⭐⭐  | Haskell     |
-|  15 |   | Haskell      |
-|  16 |   | Haskell      |
-|  17 |   | Haskell      |
-|  18 |   | Haskell      |
-|  19 |   | Haskell      |
-|  20 |   | Haskell      |
-|  21 |   | Haskell      |
-|  22 |   | Haskell      |
-|  23 |   | Haskell      |
-|  24 |   | Haskell      |
-|  25 |   | Haskell      |
+|  15 | ⭐❓  | Haskell     |
+|  16 | ❓❓  | Haskell     |
+|  17 | ⭐ _  | Haskell     |
+|  18 | _ _   | Haskell     |
+|  19 | _ _   | Haskell     |
+|  20 | _ _   | Haskell     |
+|  21 | _ _   | Haskell     |
+|  22 | _ _   | Haskell     |
+|  23 | _ _   | Haskell     |
+|  24 | _ _   | Haskell     |
+|  25 | _ _   | Haskell     |
