@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--                Day 18: RAM Run                 --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 
+Part 2: 
+
+input.txt:
+Part 1: 
+Part 2: 
