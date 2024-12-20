@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--             Day 20: Race Condition             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 
+Part 2: 
+
+input.txt:
+Part 1: 
+Part 2: 
