@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--             Day 22: Monkey Market              --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 37327623
+Part 2: 
+
+input.txt:
+Part 1: 13753970725
+Part 2: 
