@@ -6,24 +6,32 @@
 
 module Main where
 
-import Data.Bits ( xor )
 import Data.Composition ( (.:) )
+import Data.Bits ( (.|.), shiftL, shiftR, xor )
+import qualified Data.IntMap as IntMap
 
-next :: Integer -> Integer
+next :: Int -> Int
 next = fun (* 2048) . fun (`div` 32) . fun (* 64)
-    where mixAndPrune = (`mod` 16_777_216) .: xor
-          fun f i = mixAndPrune i $ f i
+    where mixNPrune = (`mod` 16_777_216) .: xor
+          fun f i = mixNPrune i $ f i
 
-secretNumber2000 :: Integer -> Integer
-secretNumber2000 = last . take 2001 . iterate next
+secrets :: Int -> [Int]
+secrets = take 2001 . iterate next
 
-priceChanges :: Integer -> [Integer]
-priceChanges n = zipWith (-) (tail prices) prices
-    where secrets = take 2001 $ iterate next n
-          prices  = map (`mod` 10) secrets
+priceChanges :: Num c => [c] -> [c]
+priceChanges ps = zipWith (-) (tail ps) ps
+
+absurdNumberOfBananas :: [Int] -> Int
+absurdNumberOfBananas lst = maximum $ IntMap.elems m
+    where m = IntMap.unionsWith (+) $ map bananas prices
+          prices = map (map (`mod` 10) . secrets) lst
+
+bananas :: [Int] -> IntMap.IntMap Int
+bananas l = IntMap.fromListWith (\_ x -> x) lst
+    where seq = scanl (\acc x -> ((x + 9) `shiftL` 15) .|. (acc `shiftR` 5)) 0
+          lst = drop 4 $ zip (seq $ priceChanges l) l
 
 main :: IO()
 main = do lst <- map read . lines <$> readFile "input.txt"
-          putStrLn $ "Part 1: " ++ show (sum $ map secretNumber2000 lst)
-
-          putStrLn $ "Part 2: " ++ show ("")
+          putStrLn $ "Part 1: " ++ show (sum $ map (last . secrets) lst)
+          putStrLn $ "Part 2: " ++ show (absurdNumberOfBananas lst)
