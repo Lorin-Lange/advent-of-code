@@ -22,7 +22,7 @@
 |  19 | ❓❓  | Haskell     |
 |  20 | ❓❓  | Haskell     |
 |  21 | ❓❓  | Haskell     |
-|  22 | ⭐⭐  | Haskell     |
+|  22 | 🐵🐒  | Haskell     |
 |  23 | _ _   | Haskell     |
 |  24 | _ _   | Haskell     |
 |  25 | _ _   | Haskell     |
