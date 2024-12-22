@@ -1,6 +1,6 @@
 ----------------------------------------------------
 --              Advent of Code 2024               --
---             Day 22: Monkey Market              --
+--           🐵Day 22: Monkey Market🐒            --
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
@@ -33,5 +33,5 @@ bananas l = IntMap.fromListWith (\_ x -> x) lst
 
 main :: IO()
 main = do lst <- map read . lines <$> readFile "input.txt"
-          putStrLn $ "Part 1: " ++ show (sum $ map (last . secrets) lst)
-          putStrLn $ "Part 2: " ++ show (absurdNumberOfBananas lst)
+          putStrLn $ "Part 1: " ++ show (sum $ map (last . secrets) lst) 
+          putStrLn $ "Part 2: " ++ show (absurdNumberOfBananas lst) 
