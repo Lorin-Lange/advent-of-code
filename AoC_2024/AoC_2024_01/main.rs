@@ -28,11 +28,11 @@ fn part_1(l1 : &Vec<i32>, l2 : &Vec<i32>) -> i32 {
 }
 
 fn part_2(l1 : &Vec<i32>, l2 : &Vec<i32>) -> i32 {
-    let mut my_map = HashMap::new();
+    let mut map = HashMap::new();
     for &x in l2 {
-        *my_map.entry(x).or_insert(0) += 1;
+        *map.entry(x).or_insert(0) += 1;
     }
-    l1.iter().map(|&a| a * my_map.get(&a).unwrap_or(&0)).sum()
+    l1.iter().map(|&a| a * map.get(&a).unwrap_or(&0)).sum()
 }
 
 #[test]
