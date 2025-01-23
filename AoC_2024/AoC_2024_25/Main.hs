@@ -21,7 +21,7 @@ fit :: ([Int], [Int]) -> Bool
 fit (l1, l2) = all (<= 5) $ zipWith (+) l1 l2
 
 makeComb :: ([[Int]], [[Int]]) -> [([Int], [Int])]
-makeComb (l1, l2) = l1 >>= \l1' -> l2 >>= \l2' -> pure (l1', l2')
+makeComb (l1, l2) = l1 >>= \l1' -> l2 >>= \l2' -> [(l1', l2')]
 
 main :: IO()
 main = do combi <- makeComb . parse . lines <$> readFile "input.txt"
