@@ -1,0 +1,11 @@
+----------------------------------------------------
+--              Advent of Code 2024               --
+--             Day 25: Code Chronicle             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 3
+
+input.txt:
+Part 1: 3671
