@@ -9,7 +9,7 @@
 module Main where
 
 toDecimal :: [Integer] -> Integer
-toDecimal = sum . zipWith (\i s -> s * 5 ^ i) [0..] . reverse
+toDecimal = sum . zipWith (\i s -> s * 5^i) [0..] . reverse
 
 toSNAFU :: Integer -> String
 toSNAFU i = if i == 0 then "" else toSNAFU i' ++ [c r]
