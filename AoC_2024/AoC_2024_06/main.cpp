@@ -14,7 +14,9 @@
 
 using namespace std;
 
-auto find_start(vector<string> &g) {
+vector<pair<int, int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+pair<int, int> find_start(vector<string> &g) {
     for(int r = 0; r < g.size(); r++) {
         for(int c = 0; c < g[r].size(); c++) {
             if(g[r][c] == '^') {
@@ -27,7 +29,6 @@ auto find_start(vector<string> &g) {
 }
 
 int part_one(pair<int, int> pos, vector<string> &g) {
-    vector<pair<int, int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     int height = g.size();
     int width = g[0].size();
     set<pair<int, int>> visited;
@@ -37,18 +38,14 @@ int part_one(pair<int, int> pos, vector<string> &g) {
         int r = pos.first + dirs[dir].first;
         int c = pos.second + dirs[dir].second;
         if(r < 0 || r >= height || c < 0 || c >= width) break;
-        if(g[r][c] == '.') {
-            pos = {r, c};
-        }
-        else {
-            dir = (dir + 1) % 4;
-        }
+        if(g[r][c] == '.') pos = {r, c};
+        else dir = (dir + 1) % 4;
     }
     return visited.size();
 }
 
-int part_two(pair<int, int> pos, vector<string> g) { 
-    return -1; 
+int part_two(pair<int, int> pos, vector<string> &g) {
+    return -1;
 }
 
 int main() {
@@ -69,10 +66,10 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    auto start_pos = find_start(grid);
+    pair<int, int> start_pos = find_start(grid);
 
     cout << "Part 1: " << part_one(start_pos, grid) << "\n";
-    cout << "Part 2: " << part_two(start_pos, grid) << "\n";
+    cout << "Part 2: " << part_two(start_pos, grid) << endl;
 
     return EXIT_SUCCESS;
 }
