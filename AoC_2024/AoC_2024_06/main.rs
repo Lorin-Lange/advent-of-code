@@ -30,10 +30,10 @@ fn find_start(grid: &mut Vec<Vec<char>>) -> (usize, usize) {
             }
         }
     }
-    (usize::MIN, usize::MIN)
+    (usize::MAX, usize::MAX)
 }
 
-fn part_one(mut pos: (usize, usize), grid: &Vec<Vec<char>>) -> usize {
+fn part_1(mut pos: (usize, usize), grid: &Vec<Vec<char>>) -> usize {
     let height = grid.len() as i32;
     let width = grid[0].len() as i32;
     let mut dir = 0;
@@ -55,7 +55,7 @@ fn part_one(mut pos: (usize, usize), grid: &Vec<Vec<char>>) -> usize {
 fn is_loop(mut pos: (usize, usize), grid: &Vec<Vec<char>>) -> bool {
     let height = grid.len() as i32;
     let width = grid[0].len() as i32;
-    let mut dir = 0usize;
+    let mut dir = 0;
     let mut visited = vec![false; grid.len() * grid[0].len() * 4];
     loop {
         let hash = dir + (pos.0 * grid[0].len() + pos.1) * 4;
@@ -74,7 +74,7 @@ fn is_loop(mut pos: (usize, usize), grid: &Vec<Vec<char>>) -> bool {
     }
 }
 
-fn part_two(pos: (usize, usize), grid: &mut Vec<Vec<char>>) -> usize {
+fn part_2(pos: (usize, usize), grid: &mut Vec<Vec<char>>) -> usize {
     let mut counter = 0;
     for r in 0..grid.len() {
         for c in 0..grid[r].len() {
@@ -93,8 +93,8 @@ fn part_two(pos: (usize, usize), grid: &mut Vec<Vec<char>>) -> usize {
 fn main() {
     let mut grid = parse(FILE_NAME);
     let start_pos = find_start(&mut grid);
-    println!("Part 1: {}", part_one(start_pos, &grid));
-    println!("Part 2: {}", part_two(start_pos, &mut grid));
+    println!("Part 1: {}", part_1(start_pos, &grid));
+    println!("Part 2: {}", part_2(start_pos, &mut grid));
 }
 
 #[cfg(test)]
@@ -105,16 +105,16 @@ mod test {
     fn test_input() {
         let mut grid = parse("test_input.txt");
         let start_pos = find_start(&mut grid);
-        assert_eq!(part_one(start_pos, &grid), 41);
-        assert_eq!(part_two(start_pos, &mut grid), 6);
+        assert_eq!(part_1(start_pos, &grid), 41);
+        assert_eq!(part_2(start_pos, &mut grid), 6);
     }
 
     #[test]
     fn input() {
         let mut grid = parse("input.txt");
         let start_pos = find_start(&mut grid);
-        assert_eq!(part_one(start_pos, &grid), 5086);
-        assert_eq!(part_two(start_pos, &mut grid), 1770);
+        assert_eq!(part_1(start_pos, &grid), 5086);
+        assert_eq!(part_2(start_pos, &mut grid), 1770);
     }
 
 }
