@@ -14,7 +14,7 @@
 
 using namespace std;
 
-vector<pair<int, int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+constexpr pair<int, int> dirs[] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
 pair<int, int> find_start(vector<string> &g) {
     for(int r = 0; r < g.size(); r++) {
@@ -31,8 +31,8 @@ pair<int, int> find_start(vector<string> &g) {
 int part_one(pair<int, int> pos, vector<string> &g) {
     int height = g.size();
     int width = g[0].size();
-    set<pair<int, int>> visited;
     int dir = 0;
+    set<pair<int, int>> visited;
     while(true) {
         visited.insert(pos);
         int r = pos.first + dirs[dir].first;
@@ -44,8 +44,35 @@ int part_one(pair<int, int> pos, vector<string> &g) {
     return visited.size();
 }
 
+bool is_loop(pair<int, int> pos, vector<string> &g) {
+    int height = g.size();
+    int width = g[0].size();
+    int dir = 0;
+    vector<bool> visited(height * width * 4);
+    while(true) {
+        int hash = dir + (pos.first * width + pos.second) * 4;
+        if (visited[hash]) return true;
+        visited[hash] = true;
+        int r = pos.first + dirs[dir].first;
+        int c = pos.second + dirs[dir].second;
+        if (r < 0 || r >= height || c < 0 || c >= width) return false;
+        if (g[r][c] == '.') pos = {r, c};
+        else dir = (dir + 1) % 4;
+    }
+}
+
 int part_two(pair<int, int> pos, vector<string> &g) {
-    return -1;
+	int counter = 0;
+    for(int r = 0; r < g.size(); r++) {
+        for(int c = 0; c < g[r].size(); c++) {
+			if (g[r][c] == '.' && pos != make_pair(r, c)) {
+				g[r][c] = '#';
+				if (is_loop(pos, g)) counter++;
+				g[r][c] = '.';
+			}
+        }
+    }
+    return counter;
 }
 
 int main() {
