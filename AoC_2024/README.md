@@ -6,7 +6,7 @@
 |   3 | ⭐⭐  | Haskell            |
 |   4 | ⭐⭐  | Haskell            |
 |   5 | ⭐⭐  | Haskell            |
-|   6 | ⭐❓  | Haskell, Rust, C++ |
+|   6 | ⭐⭐  | Haskell, Rust, C++ |
 |   7 | ⭐⭐  | Haskell            |
 |   8 | ⭐❓  | Haskell            |
 |   9 | ⭐❓  | Haskell            |
