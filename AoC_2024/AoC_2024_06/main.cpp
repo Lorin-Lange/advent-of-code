@@ -28,7 +28,7 @@ pair<int, int> find_start(vector<string> &g) {
     return make_pair(-1, -1);
 }
 
-int part_one(pair<int, int> pos, vector<string> &g) {
+int part_1(pair<int, int> pos, vector<string> &g) {
     int height = g.size();
     int width = g[0].size();
     int dir = 0;
@@ -61,7 +61,7 @@ bool is_loop(pair<int, int> pos, vector<string> &g) {
     }
 }
 
-int part_two(pair<int, int> pos, vector<string> &g) {
+int part_2(pair<int, int> pos, vector<string> &g) {
 	int counter = 0;
     for(int r = 0; r < g.size(); r++) {
         for(int c = 0; c < g[r].size(); c++) {
@@ -95,8 +95,8 @@ int main() {
 
     pair<int, int> start_pos = find_start(grid);
 
-    cout << "Part 1: " << part_one(start_pos, grid) << "\n";
-    cout << "Part 2: " << part_two(start_pos, grid) << endl;
+    cout << "Part 1: " << part_1(start_pos, grid) << "\n";
+    cout << "Part 2: " << part_2(start_pos, grid) << endl;
 
     return EXIT_SUCCESS;
 }
