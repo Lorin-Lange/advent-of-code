@@ -27,3 +27,30 @@ cabal.project.local~
 .directory
 .Trash-*
 .nfs*
+
+# Rust / Cargo
+/target/
+**/*.rs.bk
+
+# Executables
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Rust/Cargo specific
+Cargo.lock
+
+# Editor/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.log
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
