@@ -3,7 +3,7 @@
 | --: | :--:  | :------------------|
 |   1 | ⭐⭐  | Haskell, Rust      |
 |   2 | ⭐⭐  | Haskell            |
-|   3 | ⭐⭐  | Haskell            |
+|   3 | ⭐⭐  | Haskell, Rust      |
 |   4 | ⭐⭐  | Haskell            |
 |   5 | ⭐⭐  | Haskell            |
 |   6 | ⭐⭐  | Haskell, Rust, C++ |
