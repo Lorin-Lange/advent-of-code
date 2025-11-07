@@ -6,11 +6,11 @@
 
 module Main where
 
-import Data.List ( sort, group )
-import Data.Maybe ( fromMaybe )
-import Data.Composition ( (.:) )
-import Control.Monad  ( join )
-import Control.Arrow ( (***) )
+import Data.List (sort, group)
+import Data.Maybe (fromMaybe)
+import Data.Composition ((.:))
+import Control.Monad (join)
+import Control.Arrow ((***))
 import qualified Data.IntMap.Strict as IntMap
 
 makeScore :: IntMap.IntMap Int -> Int -> Int
