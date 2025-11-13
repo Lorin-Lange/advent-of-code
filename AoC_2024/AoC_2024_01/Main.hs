@@ -13,8 +13,9 @@ import Control.Monad (join)
 import Control.Arrow ((***))
 import qualified Data.IntMap.Strict as IntMap
 
-makeScore :: IntMap.IntMap Int -> Int -> Int
-makeScore m n = IntMap.findWithDefault 0 n m * n
+makeScore :: [Int] -> Int -> Int
+makeScore l n = IntMap.findWithDefault 0 n m * n
+    where m = IntMap.fromList . map (\l -> (head l, length l)) $ group l
 
 parse :: String -> ([Int], [Int])
 parse = join (***) sort . unzip . map toTuple . lines
@@ -22,8 +23,5 @@ parse = join (***) sort . unzip . map toTuple . lines
 
 main :: IO()
 main = do (lst1, lst2) <- parse <$> readFile "input.txt"
-
           putStrLn $ "Part 1: " ++ show (sum $ zipWith (abs .: (-)) lst1 lst2)
-
-          let freq = IntMap.fromList . map (\l -> (head l, length l)) $ group lst2
-          putStrLn $ "Part 2: " ++ show (sum $ map (makeScore freq) lst1)
+          putStrLn $ "Part 2: " ++ show (sum $ map (makeScore lst2) lst1)
