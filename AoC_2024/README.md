@@ -1,12 +1,12 @@
 # 🦌🎅🏻⛄🎁 Advent of Code 2024 ☃️❄️🤶🎄
 | Day | Stars | Languages          |
 | --: | :--:  | :------------------|
-|   1 | ⭐⭐  | Haskell, Rust      |
+|   1 | ⭐⭐  | Haskell, Rust, C++ |
 |   2 | ⭐⭐  | Haskell            |
 |   3 | ⭐⭐  | Haskell, Rust      |
 |   4 | ⭐⭐  | Haskell            |
 |   5 | ⭐⭐  | Haskell            |
-|   6 | ⭐⭐  | Haskell, Rust, C++ |
+|   6 | ⭐⭐  | Haskell?, Rust, C++|
 |   7 | ⭐⭐  | Haskell            |
 |   8 | ⭐❓  | Haskell            |
 |   9 | ⭐❓  | Haskell            |
@@ -19,10 +19,10 @@
 |  16 | ❓❓  | Haskell            |
 |  17 | ⭐❓  | Haskell            |
 |  18 | ❓❓  | Haskell            |
-|  19 | ❓❓  | Haskell            |
+|  19 | ⭐⭐  | Haskell            |
 |  20 | ❓❓  | Haskell            |
 |  21 | ❓❓  | Haskell            |
 |  22 | ⭐⭐  | Haskell            |
 |  23 | ❓❓  | Haskell            |
 |  24 | ❓❓  | Haskell            |
-|  25 | ⭐❓  | Haskell, Rust      |
+|  25 | ⭐❓  | Haskell            |
