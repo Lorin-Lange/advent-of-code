@@ -9,7 +9,7 @@ module Main where
 import Data.List (isPrefixOf)
 import Data.List.Split (splitOn)
 import Data.MemoTrie (memoFix)
-import Control.Arrow (Arrow((&&&)))
+import Control.Arrow ((&&&))
 
 ways :: [String] -> String -> Int
 ways ts = memoFix go where
