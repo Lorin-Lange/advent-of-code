@@ -6,30 +6,28 @@
 
 module Main where
 
-import Data.Composition ( (.:) )
-import Data.Bits ( (.|.), shiftL, shiftR, xor )
+import Data.Composition ((.:))
+import Data.Bits ((.|.), shiftL, shiftR, xor)
 import qualified Data.IntMap as IntMap
 
 next :: Int -> Int
 next = fun (* 2048) . fun (`div` 32) . fun (* 64)
-    where mixNPrune = (`mod` 16_777_216) .: xor
-          fun f i = mixNPrune i $ f i
+    where fun f i   = mixNPrune i $ f i
+          mixNPrune = (`mod` 16_777_216) .: xor
 
 secrets :: Int -> [Int]
 secrets = take 2001 . iterate next
 
-priceChanges :: Num c => [c] -> [c]
-priceChanges ps = zipWith (-) (tail ps) ps
-
 absurdNumberOfBananas :: [Int] -> Int
 absurdNumberOfBananas lst = maximum $ IntMap.elems m
-    where m = IntMap.unionsWith (+) $ map bananas prices
-          prices = map (map (`mod` 10) . secrets) lst
+    where ps = map (map (`mod` 10) . secrets) lst
+          m  = IntMap.unionsWith (+) $ map bananas ps
 
 bananas :: [Int] -> IntMap.IntMap Int
 bananas l = IntMap.fromListWith (\_ x -> x) lst
     where seq = scanl (\acc x -> ((x + 9) `shiftL` 15) .|. (acc `shiftR` 5)) 0
-          lst = drop 4 $ zip (seq $ priceChanges l) l
+          lst = drop 4 $ zip (seq $ changes l) l
+          changes ps = zipWith (-) (tail ps) ps
 
 main :: IO()
 main = do lst <- map read . lines <$> readFile "input.txt"
