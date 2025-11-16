@@ -5,9 +5,9 @@
 ----------------------------------------------------
 
 test_input.txt:
-Part 1: 
-Part 2: 
+Part 1: 7
+Part 2: "co,de,ka,ta"
 
 input.txt:
-Part 1: 
-Part 2: 
+Part 1: 1154
+Part 2: "aj,ds,gg,id,im,jx,kq,nj,ql,qr,ua,yh,zn"
