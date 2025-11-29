@@ -1,2 +1,0 @@
-test input
-day 2
