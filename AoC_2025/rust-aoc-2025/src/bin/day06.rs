@@ -14,12 +14,11 @@ fn main() {
 }
 
 #[cfg(test)]
-mod tests {
+mod tests_day06 {
     use super::*;
 
     #[test]
     fn test_part_1() {
-        assert_eq!(true, true);
     }
 
     #[test]
