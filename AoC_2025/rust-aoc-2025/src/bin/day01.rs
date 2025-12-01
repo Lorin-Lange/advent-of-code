@@ -7,9 +7,11 @@
 const INPUT: &str = include_str!("../../inputs/day01/input.txt");
 const TEST_INPUT: &str = include_str!("../../inputs/day01/test_input.txt");
 
-fn parse(inp: &str) -> Vec<(i32, i32)> {
-    let mut lst = Vec::new();
-    for line in inp.lines() {
+type Rotations = Vec<(i32, i32)>;
+
+fn parse(input: &str) -> Rotations {
+    let mut rots = Vec::new();
+    for line in input.lines() {
         let chars: Vec<char> = line.chars().collect();
         let dir = chars[0];
         let dist: i32 = line[1..].parse().unwrap();
@@ -18,15 +20,15 @@ fn parse(inp: &str) -> Vec<(i32, i32)> {
             'R' => 1,
             _ => panic!("Invalid format."),
         };
-        lst.push((step, dist));
+        rots.push((step, dist));
     }
-    lst
+    rots
 }
 
-fn part_1(inp: &Vec<(i32, i32)>) -> i32 {
+fn part_1(rots: &Rotations) -> i32 {
     let mut dial: i32 = 50;
     let mut res: i32 = 0;
-    for (step, dist) in inp.iter() {
+    for (step, dist) in rots.iter() {
         for _ in 0..*dist {
             dial += step;
         }
@@ -37,10 +39,10 @@ fn part_1(inp: &Vec<(i32, i32)>) -> i32 {
     res
 }
 
-fn part_2(inp: &Vec<(i32, i32)>) -> i32 {
+fn part_2(rots: &Rotations) -> i32 {
     let mut dial: i32 = 50;
     let mut res: i32 = 0;
-    for (step, dist) in inp.iter() {
+    for (step, dist) in rots.iter() {
         for _ in 0..*dist {
             dial += step;
             if dial % 100 == 0 {
@@ -52,7 +54,7 @@ fn part_2(inp: &Vec<(i32, i32)>) -> i32 {
 }
 
 fn main() {
-    let inp = parse(INPUT);
+    let inp: Rotations = parse(INPUT);
     println!("Part 1: {}", part_1(&inp));
     println!("Part 2: {}", part_2(&inp));
 }
