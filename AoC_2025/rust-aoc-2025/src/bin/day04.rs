@@ -1,5 +1,3 @@
-
-
 use rust_aoc_2025::*;
 
 fn part_1() {
@@ -32,5 +30,4 @@ mod tests_day04 {
         part_2();
         assert_eq!(true, true);
     }
-
 }

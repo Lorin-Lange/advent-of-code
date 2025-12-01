@@ -4,10 +4,10 @@
 //            Solution by Lorin Lange             //
 ////////////////////////////////////////////////////
 
-const INPUT : &str = include_str!("../../inputs/day01/input.txt");
-const TEST_INPUT : &str = include_str!("../../inputs/day01/test_input.txt");
+const INPUT: &str = include_str!("../../inputs/day01/input.txt");
+const TEST_INPUT: &str = include_str!("../../inputs/day01/test_input.txt");
 
-fn parse(inp : &str) -> Vec<(i32, i32)> {
+fn parse(inp: &str) -> Vec<(i32, i32)> {
     let mut lst = Vec::new();
     for line in inp.lines() {
         let chars: Vec<char> = line.chars().collect();
@@ -15,8 +15,8 @@ fn parse(inp : &str) -> Vec<(i32, i32)> {
         let dist: i32 = line[1..].parse().unwrap();
         let step = match dir {
             'L' => -1,
-            'R' =>  1,
-            _   => panic!("Invalid format."),
+            'R' => 1,
+            _ => panic!("Invalid format."),
         };
         lst.push((step, dist));
     }
@@ -39,16 +39,16 @@ fn part_1(inp: &Vec<(i32, i32)>) -> i32 {
 
 fn part_2(inp: &Vec<(i32, i32)>) -> i32 {
     let mut dial: i32 = 50;
-    let mut b: i32 = 0;
+    let mut res: i32 = 0;
     for (step, dist) in inp.iter() {
         for _ in 0..*dist {
             dial += step;
             if dial % 100 == 0 {
-                b += 1;
+                res += 1;
             }
         }
     }
-    b
+    res
 }
 
 fn main() {
@@ -72,5 +72,4 @@ mod tests_day01 {
         assert_eq!(6, part_2(&parse(TEST_INPUT)));
         assert_eq!(5831, part_2(&parse(INPUT)));
     }
-
 }
