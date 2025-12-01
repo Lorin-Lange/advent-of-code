@@ -4,6 +4,8 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
+module Main(main) where
+
 import Data.List (mapAccumL)
 
 parse :: String -> Int
