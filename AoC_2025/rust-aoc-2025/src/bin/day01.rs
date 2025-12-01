@@ -13,9 +13,8 @@ fn parse(input: &str) -> Rotations {
     let mut rots = Vec::new();
     for line in input.lines() {
         let chars: Vec<char> = line.chars().collect();
-        let dir = chars[0];
         let dist: i32 = line[1..].parse().unwrap();
-        let step = match dir {
+        let step = match chars[0] {
             'L' => -1,
             'R' => 1,
             _ => panic!("Invalid format."),
