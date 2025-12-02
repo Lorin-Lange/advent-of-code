@@ -24,13 +24,10 @@ isInvalid2 n = any inval [1 .. len `div` 2]
         inval k = len `mod` k == 0 && 
             concat (replicate (len `div` k) $ take k s) == s
 
-part1 :: [Integer] -> Integer
-part1 = sum . filter isInvalid1
-
-part2 :: [Integer] -> Integer
-part2 = sum . filter isInvalid2
+solve :: (Integer -> Bool) -> [Integer] -> Integer
+solve p = sum . filter p
 
 main :: IO()
 main = do input <- parse <$> readFile "input.txt"
-          putStrLn $ "Part 1: " ++ show (part1 input)
-          putStrLn $ "Part 2: " ++ show (part2 input)
+          putStrLn $ "Part 1: " ++ show (solve isInvalid1 input)
+          putStrLn $ "Part 2: " ++ show (solve isInvalid2 input)
