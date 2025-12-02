@@ -4,7 +4,7 @@
 --            Solution by Lorin Lange             --
 ----------------------------------------------------
 
-module Main(main) where
+module Main (main) where
 
 import Data.List (mapAccumL)
 
