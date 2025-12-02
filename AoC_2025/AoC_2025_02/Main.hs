@@ -9,9 +9,8 @@ module Main (main) where
 import Data.List.Split (splitOn)
 
 parse :: String -> [Integer]
-parse = concatMap makeRange . splitOn ","
-  where makeTuple s = (read $ head s, read $ s !! 1)
-        makeRange l = let (a, b) = makeTuple $ splitOn "-" l in [a..b]
+parse = concatMap (\l -> [get 0 l .. get 1 l]) . splitOn ","
+  where get n lst = read $ splitOn "-" lst !! n
 
 isInvalid1 :: Integer -> Bool
 isInvalid1 n = even len && a == b
@@ -19,10 +18,10 @@ isInvalid1 n = even len && a == b
         len    = length $ show n
 
 isInvalid2 :: Integer -> Bool
-isInvalid2 n = any inValid [1 .. len `div` 2]
-  where s         = show n
-        len       = length s
-        inValid k = len `mod` k == 0 && 
+isInvalid2 n = any inval [1 .. len `div` 2]
+  where s       = show n
+        len     = length s
+        inval k = len `mod` k == 0 && 
             concat (replicate (len `div` k) $ take k s) == s
 
 part1 :: [Integer] -> Integer
