@@ -32,7 +32,9 @@ If not necessary, I don't write object oriented code.
 
 ### Why *Rust*?
 Rust is a good tradeoff between imperative and functional programming:
+
  - [Rust](https://rust-lang.org/)
+
 But for AoC '25 I'll do it only in Haskell.
 
 ## About *Advent of Code*
