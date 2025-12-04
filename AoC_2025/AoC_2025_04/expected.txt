@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2025               --
+--           Day 4: Printing Department           --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 13
+Part 2: 43
+
+input.txt:
+Part 1: 1397
+Part 2: 8758
