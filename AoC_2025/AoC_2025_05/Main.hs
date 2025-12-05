@@ -11,9 +11,9 @@ import Data.Ix (Ix(inRange))
 import Data.List (foldl', sortOn)
 
 parse :: String -> ([(Int, Int)], [Int])
-parse input = (sortOn fst $ toPairs ranges, map read ids)
+parse input = (sortOn fst $ map toPair ranges, map read ids)
    where (ranges, _:ids) = break null $ lines input
-         toPairs = map $ (\[s, e] -> (read s, read e)) . splitOn "-"
+         toPair = (\[s, e] -> (read s, read e)) . splitOn "-"
 
 part1 :: [Int] -> [(Int, Int)] -> Int
 part1 ids ranges = sum [ 1 | id <- ids, any (`inRange` id) ranges ]
