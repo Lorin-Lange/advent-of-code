@@ -13,7 +13,10 @@ bestN n = read . go n
           where c        = maximum $ take (length xs - n + 1) xs
                 (_, _:r) = break (== c) xs
 
+solve :: Int -> [String] -> Int
+solve n = sum . map (bestN n)
+
 main :: IO()
 main = do input <- lines <$> readFile "input.txt"
-          putStrLn $ "Part 1: " ++ show (sum $ map (bestN  2) input)
-          putStrLn $ "Part 2: " ++ show (sum $ map (bestN 12) input)
+          putStrLn $ "Part 1: " ++ show (solve  2 input)
+          putStrLn $ "Part 2: " ++ show (solve 12 input)
