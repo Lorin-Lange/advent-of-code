@@ -12,7 +12,6 @@ module Main (main) where
 import Data.List.Split (splitOn)
 import Data.Ix (Ix(inRange))
 import Data.List (foldl', sortOn)
-import Data.Ord (comparing)
 
 data DB = DB
   { ranges :: [(Int, Int)]
