@@ -20,11 +20,11 @@ atZero n m | m > 0     = (n + m) `div` 100
            | otherwise = (n + m) `div` (-100) - n `div` (-100)
 
 part1 :: [Int] -> Int
-part1 lst = sum [1 | n <- scanl rot 50 lst, n == 0]
+part1 = length . filter (== 0) . scanl rot 50
 
 part2 :: [Int] -> Int
 part2 = sum . snd . mapAccumL step 50
-  where step n m = (rot n m, atZero n m)
+   where step n m = (rot n m, atZero n m)
 
 main :: IO()
 main = do input <- map parse . lines <$> readFile "input.txt"
