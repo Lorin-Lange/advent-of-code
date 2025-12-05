@@ -22,7 +22,7 @@ part1 :: [Int] -> [(Int, Int)] -> Int
 part1 ids ranges = sum [ 1 | id <- ids, any (`inRange` id) ranges ]
 
 part2 :: [(Int, Int)] -> Int
-part2 ranges = fst $ foldl' go (0, 0) ranges
+part2 = fst . foldl' go (0, 0)
   where go (t, le) (s, e) | le >= e   = (t, le)
                           | le < s    = (t + e - s + 1, e)
                           | otherwise = (t + e - le, e)
