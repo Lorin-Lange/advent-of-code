@@ -14,6 +14,9 @@ parseOp :: Num a => String -> a -> a -> a
 parseOp "*" = (*)
 parseOp "+" = (+)
 
+chunkByEmpty :: [String] -> [[String]]
+chunkByEmpty = filter (not . null) . splitWhen (all isSpace)
+
 part1 :: [String] -> Int
 part1 inp = sum $ zipWith foldl1 ops nums
     where inp' = transpose $ map words inp
@@ -25,9 +28,6 @@ part2 inp = sum $ zipWith foldl1 ops nums
     where inp' = chunkByEmpty . reverse $ transpose inp
           nums = map (map (read . init)) inp'
           ops  = map (parseOp . (:[]) . last . last) inp'
-
-chunkByEmpty :: [String] -> [[String]]
-chunkByEmpty = filter (not . null) . splitWhen (all isSpace)
 
 main :: IO()
 main = do input <- lines <$> readFile "input.txt"
