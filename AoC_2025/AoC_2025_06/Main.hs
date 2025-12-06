@@ -8,6 +8,7 @@ module Main (main) where
 
 import Data.List (transpose)
 import Data.Char (isSpace)
+import Data.List.Split (splitWhen)
 
 parseOp :: Num a => String -> a -> a -> a
 parseOp "*" = (*)
@@ -26,9 +27,7 @@ part2 inp = sum $ zipWith foldl1 ops nums
           ops  = map (parseOp . (:[]) . last . last) inp'
 
 chunkByEmpty :: [String] -> [[String]]
-chunkByEmpty = filter (not . null) . foldr step [[]]
-   where step s (c:cs) | all isSpace s = [] : c : cs
-                       | otherwise    = (s:c) : cs
+chunkByEmpty = filter (not . null) . splitWhen (all isSpace)
 
 main :: IO()
 main = do input <- lines <$> readFile "input.txt"
