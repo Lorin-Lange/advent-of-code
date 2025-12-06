@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2025               --
+--             Day 6: Trash Compactor             --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 4277556
+Part 2: 3263827
+
+input.txt:
+Part 1: 6100348226985
+Part 2: 
