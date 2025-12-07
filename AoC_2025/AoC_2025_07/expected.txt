@@ -1,0 +1,13 @@
+----------------------------------------------------
+--              Advent of Code 2025               --
+--              Day 7: Laboratories               --
+--            Solution by Lorin Lange             --
+----------------------------------------------------
+
+test_input.txt:
+Part 1: 21
+Part 2: 40
+
+input.txt:
+Part 1: 1635
+Part 2: 58097428661390
