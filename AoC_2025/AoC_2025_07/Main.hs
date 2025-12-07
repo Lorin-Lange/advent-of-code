@@ -8,7 +8,6 @@ module Main (main) where
 
 import qualified Data.Map.Strict as Map
 import qualified Data.Set as Set
-import Data.Maybe (mapMaybe)
 
 type Pos = (Int, Int)
 
@@ -29,8 +28,8 @@ reachables g s = Set.toList $ go Set.empty [s]
    where go seen [] = seen
          go seen (curr:rest) 
             | curr `Set.member` seen = go seen rest
-            | otherwise              = 
-                go (Set.insert curr seen) (nexts g curr ++ rest)
+            | otherwise              = go (Set.insert curr seen) 
+                                          (nexts g curr ++ rest)
 
 nexts :: Grid -> Pos -> [Pos]
 nexts g p@(x, y) = case Map.lookup p g of
@@ -46,10 +45,12 @@ next maxY g (accMap, accExit) (x, y) count
         Just '^'  -> (addSplit accMap count,       accExit)
         _         -> (add (x, y + 1) count accMap, accExit)
     where addSplit mp c = add (x + 1, y) c $ add (x - 1, y) c mp
-          add           = Map.insertWith (+) 
+          add           = Map.insertWith (+)
 
 part1 :: (Grid, Pos, Int) -> Int
-part1 (g, s, _) = length $ filter (\c -> Map.lookup c g == Just '^') (reachables g s)
+part1 (g, s, _) = length 
+                . filter ((Just '^' ==) . flip Map.lookup g) 
+                $ reachables g s
 
 part2 :: (Grid, Pos, Int) -> Integer
 part2 (g, s, maxY) = go (Map.singleton s 1) 0
